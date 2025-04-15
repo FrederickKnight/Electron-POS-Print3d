@@ -1,0 +1,76 @@
+---
+import AsideNav from "@components/aside_nav.astro"
+import "@styles/global.css"
+
+import IconTheme from "@icons/icon-theme_color.astro"
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Impresiones Index</title>
+	</head>
+	<body>
+		<AsideNav />
+		<main>
+			<slot />
+		</main>
+		<div class="aside-top">
+			<IconTheme />
+		</div>
+	</body>
+</html>
+
+<style>
+	:root{
+		--background-color: #ffffff;
+    	--text-color: #000000;
+	}
+
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100vh;
+		background-color: var(--primary-color-black);
+		color: white;
+	}
+	
+	html.dark {
+		--background-color: #ff0000;
+		--text-color: #ffffff;
+	}
+
+	body {
+		box-sizing: border-box;
+		display:flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		width: 100vw;
+		padding:10px;
+
+		background-color: var(--background-color);
+		color: var(--text-color);
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}	
+
+	main{
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+		height: 100%;
+		flex:1;
+	}
+
+	/* probablemente tendre que moverlo despues */
+	.aside-top {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+    }
+</style>

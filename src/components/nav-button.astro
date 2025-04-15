@@ -1,0 +1,43 @@
+---
+const {text,href} = Astro.props
+
+export interface Props{
+    text:string;
+    href?: string;
+}
+
+let ref_url = ""
+if(href){
+    ref_url = href
+}
+else{
+    ref_url = "#"
+}
+---
+
+<button class="nav-button" onclick={`window.location.href='${ref_url}'`}>
+    <slot />
+    {text}
+</button>
+
+<style>
+    .nav-button{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        background: none;
+        border: none;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav-button:hover {
+        text-decoration: underline;
+    }
+</style>

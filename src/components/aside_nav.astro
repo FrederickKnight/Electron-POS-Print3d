@@ -1,0 +1,90 @@
+---
+import UserHeader from "./user_header.astro"
+import CardDashboard from "./card_dashboard.astro"
+import NavButton from "./nav-button.astro"
+
+// icons
+import IconDashboard from "@icons/icon-dashboard.astro"
+import IconTime from "@icons/icon-time.astro"
+import IconDatabase from "@icons/icon-database.astro"
+import IconDollar from "@icons/icon-dollar.astro"
+import IconBoxes from "@icons/icon-boxes.astro"
+import IconModel from "@icons/icon-model.astro"
+import IconSettings from "@icons/icon-settings.astro"
+import IconTheme from "@icons/icon-theme_color.astro"
+---
+
+<aside aria-label="Main navigation" class="main-aside-nav flex-column"> 
+    <CardDashboard class="nav-main flex-column">
+        <nav>
+            <ul class="nav-main_list flex-column">
+                <NavButton text = "Cotizaciones" href="/">
+                    <IconDashboard />
+                </NavButton>
+                <NavButton text = "Cronograma" href="/">
+                    <IconTime />
+                </NavButton>
+                <NavButton text = "Base de Datos" href="/database">
+                    <IconDatabase />
+                </NavButton>
+                <NavButton text = "Estado del Negocio" href="/">
+                    <IconDollar />
+                </NavButton>
+                <NavButton text = "Inventario" href="/">
+                    <IconBoxes />
+                </NavButton>
+                <NavButton text = "Modelos" href="/">
+                    <IconModel />
+                </NavButton>
+            </ul>
+        </nav>
+    </CardDashboard>    
+    <CardDashboard class="nav-utils flex-column">
+        <ul class="nav-utils_list flex-column">
+            <NavButton text = "Settings" href="/">
+                <IconSettings />
+            </NavButton>
+            <UserHeader />
+        </ul>
+    </CardDashboard>
+</aside>
+
+<style>
+    aside{
+        height: 100%;
+        box-sizing: border-box;
+        margin: 0 10px 0 0;
+        gap: 10px;
+    }
+
+    .flex-column{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-aside-nav{
+        align-items: center;
+    }
+
+    .nav-main{
+        height: 100%;
+    }
+    .nav-utils{
+        height: 25%;
+    }
+    
+    .nav-main, .nav-utils{
+        justify-content: center;
+    }
+
+    .nav-main_list, .nav-utils_list{
+        padding:0;
+        list-style: none;
+        align-items: center;
+        justify-content: center;
+        gap:50px;
+    }
+    .nav-utils_list{
+        gap:30px;
+    }
+</style>

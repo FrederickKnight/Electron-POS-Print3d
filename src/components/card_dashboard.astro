@@ -1,0 +1,16 @@
+
+
+<div class={`card-container ${Astro.props.class ?? ''}`} {...Astro.props}>
+    <slot />
+</div>
+
+<style>
+    .card-container{
+        box-sizing: border-box;
+        background-color: var(--primary-color-gray);
+        border-radius: 8px;
+
+        /* margin: 7px 10px; */
+        width: 100%;
+    }
+</style>
