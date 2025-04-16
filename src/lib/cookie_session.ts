@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 
-const API_URL = import.meta.env.API_URL + "auth/user/";
+const API_URL = import.meta.env.PUBLIC_API_URL + "auth/user/";
 
 export function setSessionTokenCookie(context: APIContext, token: string, expiresAt: Date): void {
 	context.cookies.set("session", token, {
