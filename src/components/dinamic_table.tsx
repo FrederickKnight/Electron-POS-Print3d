@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchData } from '@lib/fetch_data';
 import type { Sale, ErrorSale, Ticket, GeneralPrice, Client} from '@database_types';
 
-import styles from './dinamic_table.module.css';
+import styles from '@styles/dinamic_table.module.css';
 
 
 // DICCIONARIO ESPECIAL PARA PODER PASAR UN TYPO COMO PROP
@@ -53,7 +53,7 @@ export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
     };
 
     return (
-        <div>
+        <div className={styles['table-container']}>
             {data && data.length > 0 ? 
             (
                 <table>
