@@ -3,14 +3,16 @@ import Layout from '@layouts/Layout.astro';
 import CardDashboard from '@components/card_dashboard.astro';
 
 import FetchDatabase from '@components/fetch_database.astro';
+import DynamicTable from '@components/dinamic_table';
 ---
 
 <Layout>
     <div class="grid-container">
-        <CardDashboard class="card header"> 
+        <CardDashboard class="card header">
+            
         </CardDashboard>
         <CardDashboard class="card body">
-            <FetchDatabase  endpoint='/sale' typeKey='sale'/>
+            <DynamicTable client:load endpoint='/ticket' typeKey='ticket'/>
         </CardDashboard>
         <CardDashboard class="card menu">
 
@@ -26,7 +28,7 @@ import FetchDatabase from '@components/fetch_database.astro';
     .grid-container{
         display: grid;
         height: 100%;
-        grid-template-columns: 1fr 1fr .5fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto 1fr;
 
         gap:10px;
@@ -35,7 +37,6 @@ import FetchDatabase from '@components/fetch_database.astro';
         "header header menu"
         "body body menu";
     }
-
 
     .header{
         grid-area: header;
@@ -48,5 +49,4 @@ import FetchDatabase from '@components/fetch_database.astro';
     .menu{
         grid-area: menu;
     }
-
 </style>

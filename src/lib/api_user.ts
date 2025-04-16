@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.API_URL + "auth/user/";
+const API_URL = import.meta.env.PUBLIC_API_URL + "auth/user/";
 
 import type { APIContext } from "astro";
 import type {User} from "@lib/cookie_session"
