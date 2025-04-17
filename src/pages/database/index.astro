@@ -1,52 +1,10 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import CardDashboard from '@components/card_dashboard.astro';
+import Layout from "@layouts/Layout.astro";
 
-import FetchDatabase from '@components/fetch_database.astro';
-import DynamicTable from '@components/dinamic_table';
+import DatabaseDashboard from "@components/database/database_dashboard";
+
 ---
 
 <Layout>
-    <div class="grid-container">
-        <CardDashboard class="card header">
-            
-        </CardDashboard>
-        <CardDashboard class="card body">
-            <DynamicTable client:load endpoint='/ticket' typeKey='ticket'/>
-        </CardDashboard>
-        <CardDashboard class="card menu">
-
-        </CardDashboard>
-    </div>
+  <DatabaseDashboard client:load/>
 </Layout>
-
-<style>
-    .card{
-        padding: 10px;
-    }
-
-    .grid-container{
-        display: grid;
-        height: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: auto 1fr;
-
-        gap:10px;
-
-        grid-template-areas: 
-        "header header menu"
-        "body body menu";
-    }
-
-    .header{
-        grid-area: header;
-    }
-
-    .body{
-        grid-area: body;
-    }
-
-    .menu{
-        grid-area: menu;
-    }
-</style>
