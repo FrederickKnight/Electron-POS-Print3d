@@ -1,23 +1,9 @@
-
-
-<div class={`card-container ${Astro.props.class ?? ''}`} {...Astro.props}>
+---
+const {class:extraClass} = Astro.props
+export interface Props{
+    class?:string;
+}
+---
+<div class={`card-container ${extraClass ?? ''}`} {...Astro.props}>
     <slot />
 </div>
-
-<style>
-    .card-container{
-        box-sizing: border-box;
-        background-color: var(--primary-color-gray);
-        border-radius: 8px;
-        width: 100%;
-        
-        max-height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    .card-container::-webkit-scrollbar{
-        width: 0;
-        height: 0;
-    }
-</style>

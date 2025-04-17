@@ -6,3 +6,25 @@
     --secondary-light: #6D72C3;
     --secondary-accent: #E5D4ED;
 }
+
+img{
+    max-width: 300px;
+}
+
+.card-container{
+    box-sizing: border-box;
+    background-color: var(--primary-color-gray);
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px;
+    
+    min-height: 50px;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.card-container::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}

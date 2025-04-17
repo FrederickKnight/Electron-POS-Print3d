@@ -25,8 +25,11 @@
       "@styles/*": [
         "src/styles/*"
       ],
-      "@database_types": [
-        "src/database_types.ts"
+      "@ctypes/*": [
+        "src/types/*"
+      ],
+      "@hooks/*":[
+        "src/hooks/*"
       ]
     },
     "jsx": "react-jsx",

@@ -2,6 +2,7 @@
 import UserHeader from "./user_header.astro"
 import CardDashboard from "./card_dashboard.astro"
 import NavButton from "./nav-button.astro"
+import "@styles/menus.css"
 
 // icons
 import IconDashboard from "@icons/icon-dashboard.astro"
@@ -12,35 +13,37 @@ import IconBoxes from "@icons/icon-boxes.astro"
 import IconModel from "@icons/icon-model.astro"
 import IconSettings from "@icons/icon-settings.astro"
 import IconTheme from "@icons/icon-theme_color.astro"
+
+const currentPath = Astro.url.pathname;
 ---
 
 <aside aria-label="Main navigation" class="main-aside-nav flex-column"> 
     <CardDashboard class="nav-main flex-column">
-        <nav>
-            <ul class="nav-main_list flex-column">
-                <NavButton text = "Cotizaciones" href="/">
+        <nav class="tab-container">
+            <ul class="nav-main_list flex-column tab-menu">
+                <NavButton text = "Cotizaciones" href="/" active={currentPath === "/"}>
                     <IconDashboard />
                 </NavButton>
-                <NavButton text = "Cronograma" href="/">
+                <NavButton text = "Cronograma" href="/cronogram" active={currentPath === "/cronogram"}>
                     <IconTime />
                 </NavButton>
-                <NavButton text = "Base de Datos" href="/database">
+                <NavButton text = "Base de Datos" href="/database" active={currentPath === "/database"}>
                     <IconDatabase />
                 </NavButton>
-                <NavButton text = "Estado del Negocio" href="/">
+                <NavButton text = "Estado del Negocio" href="/business" active={currentPath === "/business"}>
                     <IconDollar />
                 </NavButton>
-                <NavButton text = "Inventario" href="/">
+                <NavButton text = "Inventario" href="/inventory" active={currentPath === "/inventory"}>
                     <IconBoxes />
                 </NavButton>
-                <NavButton text = "Modelos" href="/">
+                <NavButton text = "Modelos" href="/print-models" active={currentPath === "/print-models"}>
                     <IconModel />
                 </NavButton>
             </ul>
         </nav>
     </CardDashboard>    
-    <CardDashboard class="nav-utils flex-column">
-        <ul class="nav-utils_list flex-column">
+    <CardDashboard class="nav-utils flex-column tab-container">
+        <ul class="nav-utils_list flex-column tab-menu">
             <NavButton text = "Settings" href="/">
                 <IconSettings />
             </NavButton>

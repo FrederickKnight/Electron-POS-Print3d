@@ -104,7 +104,7 @@ export type Sale = {
     ticket: Ticket;
 
     id_print_model: number;
-    print_model?: PrintModel;
+    print_model: PrintModel;
 
     id_general_price: number;
     general_price: GeneralPrice;
@@ -145,3 +145,12 @@ export type Ticket = {
     uuid?: string;
     total?: number;
 }
+
+export type TypeDict = {
+    sale: Sale;
+    error_sale: ErrorSale;
+    ticket: Ticket;
+    general_price: GeneralPrice;
+    client: Client;
+    print_model:PrintModel
+};

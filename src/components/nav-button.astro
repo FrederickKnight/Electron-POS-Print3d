@@ -1,21 +1,19 @@
 ---
-const {text,href} = Astro.props
+import "@styles/menus.css"
+const {text,href, class:extraClass,id:newId, active} = Astro.props
 
 export interface Props{
+    id?:string;
     text:string;
     href?: string;
+    class?:string;
+    active?: boolean;
 }
 
-let ref_url = ""
-if(href){
-    ref_url = href
-}
-else{
-    ref_url = "#"
-}
+let ref_url = href ?? "#"
 ---
 
-<button class="nav-button" onclick={`window.location.href='${ref_url}'`}>
+<button id=`${newId}` class={`nav-button ${extraClass ?? ``} ${active ? `active` : ``}`} onclick={`window.location.href='${ref_url}'`}>
     <slot />
     {text}
 </button>
@@ -27,14 +25,7 @@ else{
         align-items: center;
         justify-content: center;
         gap: 8px;
-
-        background: none;
-        border: none;
-        color: inherit;
-        text-align: left;
-        cursor: pointer;
-        text-decoration: none;
-        cursor: pointer;
+        
     }
 
     .nav-button:hover {
