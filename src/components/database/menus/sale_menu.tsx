@@ -8,7 +8,7 @@ import TicketMenu from "./ticket_menu";
 import PrintModelMenu from "./print_model_menu";
 
 export interface Props {
-  data: Sale;
+  data: Sale | Sale;
   isInner:boolean
 }
 
@@ -33,7 +33,9 @@ export default function SaleMenu(props:Props){
 function InnerMenu({data}:{data:Sale}){
     return (
         <>
-            <h2>Sale Inner</h2>
+            <div>Sale ID: {data.id}</div>
+            <div>Sale Total: {data.total}</div>
+            <div>Sale Model: {data.id_print_model}</div>
         </>
     )
 }
@@ -43,7 +45,7 @@ function Menu({data}:{data:Sale}){
     return (
         <>
             <h2>Sale Menu</h2>
-            <h3>Sale Number: {data?.id}</h3>
+            <h4>Sale Number: {data?.id}</h4>
             <div className="tab-container">
                 <div className="tab-menu">
                     <button className={activeTab === `general_price` ? `active` : ``}

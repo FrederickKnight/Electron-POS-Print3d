@@ -9,7 +9,6 @@ export interface Props {
 
 export default function PrintModelMenu(props:Props){
     const {data,isInner} = props;
-    console.log(data)
     return (
         <>
             {isInner ?

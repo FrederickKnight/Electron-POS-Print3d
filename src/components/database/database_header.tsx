@@ -21,7 +21,6 @@ export default function DatabaseHeader(props:Props){
             setEndpoint(activeTab)
             setTypeKey(formatKey(activeTab) as keyof TypeDict)
             setActiveTab(activeTab)
-            console.log(`Active Tab ${activeTab}`)
         }
     },[activeTab])
     

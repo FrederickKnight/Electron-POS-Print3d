@@ -12,15 +12,10 @@ export interface Props<K extends keyof TypeDict>{
 export default function DatabaseMenu<K extends keyof TypeDict>(props:Props<K>){
     const { endpoint, typeKey, selectedRow } = props;
     const data = useGetData(`${endpoint}?relations=true&filter_field=id&filter_value=${selectedRow}`,typeKey)
-    
-    useEffect(() => {
-        console.log(`Type selected ${typeKey}`)
-        console.log(`endpoint ${endpoint}`)
-    },[endpoint,typeKey,selectedRow ])
 
     return (
         <>
-            <MenuSelector data={data[0]} typeKey={typeKey} isInner={false}/>
+            <MenuSelector data={data[0]} typeKey={typeKey} isInner={false} />
         </>
     )
 }

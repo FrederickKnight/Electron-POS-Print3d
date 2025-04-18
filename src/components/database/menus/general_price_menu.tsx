@@ -1,5 +1,8 @@
-import React from "react";
+import React,{useState} from "react";
 import type { GeneralPrice } from "@ctypes/database_types";
+import "@styles/menus.css"
+
+import SaleMenu from "./sale_menu";
 
 export interface Props {
   data: GeneralPrice;
@@ -55,7 +58,69 @@ function InnerMenu({data}:{data:GeneralPrice}){
 }
 
 function Menu({data}:{data:GeneralPrice}){
+    const [activeTab, setActiveTab] = useState("material_type");
     return (
-        <h2>General Price Menu</h2>
+        <>
+            <h2>General Price Menu</h2>
+            <h4>General Price id: {data?.id}</h4>
+            <div className="tab-container">
+                <div className="tab-menu">
+                <button className={activeTab === `material_type` ? `active` : ``}
+                    onClick={() => setActiveTab(`material_type`)}
+                >
+                    Material Type
+                </button>
+                <button className={activeTab === `sale` ? `active` : ``}
+                    onClick={() => setActiveTab(`sale`)}
+                >
+                    Sales
+                </button>
+                </div>
+                <div className="tab-content">
+                {activeTab === "sale" &&
+                    <>
+                        {data && data.sales ?
+                        (
+                            Array.isArray(data.sales) ? (
+                                data.sales.map((sale,index) => (
+                                    <div key={index}>
+                                        <SaleMenu data={sale} isInner={true} />
+                                    </div>
+                                ))
+                            ) :(
+                                <div>
+                                    <SaleMenu data={data.sales} isInner={true} />
+                                </div>
+                            )
+                        )
+                        :
+                        (
+                            <>
+                                No data for Sale
+                            </>
+                        )
+                        }
+                    </>
+                }
+                {activeTab === "material_type" &&
+                    <>
+                        {data && data.material_type ?
+                        (
+                            <div>
+                                Material Type
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                                No data for Material Type
+                            </>
+                        )
+                        }
+                    </>
+                }
+                </div>
+            </div>
+        </>
     )
 }
