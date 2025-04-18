@@ -13,7 +13,6 @@ interface Props<K extends keyof TypeDict> {
 
 export default function MenuSelector<K extends keyof TypeDict>(props:Props<K>){
   const { data, typeKey, isInner } = props;
-  console.log(`TypeKey pasado ${typeKey}`)
   
   const menuComponents: {
     [K in keyof TypeDict]?: React.ComponentType<{ data: TypeDict[K]; isInner:boolean }>;

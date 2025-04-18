@@ -1,5 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
+import "@styles/menus.css"
+
 import type { Ticket } from "@ctypes/database_types";
+
+import SaleMenu from "./sale_menu";
 
 export interface Props {
   data: Ticket;
@@ -9,7 +13,6 @@ export interface Props {
 
 export default function TicketMenu(props:Props){
     const {data,isInner} = props;
-    console.log(data)
     return (
         <>
             {isInner ?
@@ -43,7 +46,87 @@ function InnerMenu({data}:{data:Ticket}){
 }
 
 function Menu({data}:{data:Ticket}){
+    const [activeTab, setActiveTab] = useState("sale");
     return (
-        <h2>Ticket Menu</h2>
+        <>
+            <h2>Ticket Menu</h2>
+            <h4>Ticked Number: {data?.uuid}</h4>
+            <div className="tab-container">
+                <div className="tab-menu">
+                <button className={activeTab === `sale` ? `active` : ``}
+                    onClick={() => setActiveTab(`sale`)}
+                >
+                    Sales
+                </button>
+                <button className={activeTab === `client` ? `active` : ``}
+                    onClick={() => setActiveTab(`client`)}
+                >
+                    Client
+                </button>
+                <button className={activeTab === `user` ? `active` : ``}
+                    onClick={() => setActiveTab(`user`)}
+                >
+                    User
+                </button>
+                </div>
+                <div className="tab-content">
+                {activeTab === "sale" &&
+                    <>
+                        {data && data.sales ? (
+                                Array.isArray(data.sales) ? (
+                                    data.sales.map((sale, index) => (
+                                        <div key={index}>
+                                            <SaleMenu data={sale} isInner={true} />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div>
+                                        <SaleMenu data={data.sales} isInner={true} />
+                                    </div>
+                                )
+                            ) : (
+                                <>
+                                    No data for Sale
+                                </>
+                            )}
+                    </>
+                }
+                {activeTab === "client" &&
+                    <>
+                        {data && data.client ?
+                        (
+                            <div>
+                                Client
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                                No data for Client
+                            </>
+                        )
+                        }
+                    </>
+                }
+                {activeTab === "user" &&
+                    <>
+                        {data && data.user ?
+                        (
+                            <div>
+                                User
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                                No data for User
+                            </>
+                        )
+                        }
+                    </>
+                }
+                </div>
+            </div>
+        </>
     )
 }

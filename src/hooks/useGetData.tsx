@@ -15,6 +15,7 @@ export function useGetData<K extends keyof TypeDict>(endpoint:string,typeKey:K){
                     const response = await fetch(apiUrl);
                     if(response.ok){
                         const json = await response.json();
+                        console.log(json.response)
                         setData(json.response)
                     }
                     else{
@@ -28,7 +29,6 @@ export function useGetData<K extends keyof TypeDict>(endpoint:string,typeKey:K){
             }
         }
         fetchData()
-        console.log(apiUrl)
     },[endpoint,typeKey]);
 
     return data;

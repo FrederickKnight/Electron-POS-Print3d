@@ -17,15 +17,14 @@
     transition: background .3s;
     text-align: center;
     text-decoration: none;
-
 }
 
 .tab-menu button:hover {
-    background-color: #1e1e1e;
+    background-color: var(--background-color-menu-button);
 }
 
 .tab-menu button.active {
-    background-color: #007bff;
+    background-color: var(--background-selected-color-menu-button);
     font-weight: bolder;
 }
 
