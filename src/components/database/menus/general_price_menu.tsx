@@ -6,25 +6,28 @@ import SaleMenu from "./sale_menu";
 
 export interface Props {
   data: GeneralPrice;
-  isInner:boolean;
+  type_menu:string;
 }
 
 
 export default function GeneralPriceMenu(props:Props){
-    const {data,isInner} = props;
-    
+    const {data,type_menu} = props;
+
+    const renderMenu = () => {
+        switch (type_menu) {
+            case "inner":
+                return <InnerMenu data={data} />;
+
+            case "menu":
+                return <Menu data={data} />;
+
+            case "controll":
+                return <Controll data={data} />;
+        }
+      };
+
     return (
-        <>
-            {isInner ?
-            (
-                <InnerMenu data={data} />
-            )
-            :
-            (
-                <Menu data={data} />
-            )
-            }
-        </>
+        <>{renderMenu()}</>
     )
 }
 
@@ -84,12 +87,12 @@ function Menu({data}:{data:GeneralPrice}){
                             Array.isArray(data.sales) ? (
                                 data.sales.map((sale,index) => (
                                     <div key={index}>
-                                        <SaleMenu data={sale} isInner={true} />
+                                        <SaleMenu data={sale} type_menu="inner" />
                                     </div>
                                 ))
                             ) :(
                                 <div>
-                                    <SaleMenu data={data.sales} isInner={true} />
+                                    <SaleMenu data={data.sales} type_menu="inner" />
                                 </div>
                             )
                         )
@@ -121,6 +124,14 @@ function Menu({data}:{data:GeneralPrice}){
                 }
                 </div>
             </div>
+        </>
+    )
+}
+
+function Controll({data}:{data:GeneralPrice}){
+    return (
+        <>
+            <div>Add to General Price</div>
         </>
     )
 }

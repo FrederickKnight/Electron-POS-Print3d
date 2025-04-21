@@ -1,9 +1,0 @@
----
-const {class:extraClass} = Astro.props
-export interface Props{
-    class?:string;
-}
----
-<div class={`card-container ${extraClass ?? ''}`} {...Astro.props}>
-    <slot />
-</div>

@@ -1,6 +1,5 @@
 ---
 import UserHeader from "./user_header.astro"
-import CardDashboard from "./card_dashboard.astro"
 import NavButton from "./nav-button.astro"
 import "@styles/menus.css"
 
@@ -18,7 +17,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <aside aria-label="Main navigation" class="main-aside-nav flex-column"> 
-    <CardDashboard class="nav-main flex-column">
+    <div class="card-container nav-main flex-column">
         <nav class="tab-container">
             <ul class="nav-main_list flex-column tab-menu">
                 <NavButton text = "Cotizaciones" href="/" active={currentPath === "/"}>
@@ -39,18 +38,30 @@ const currentPath = Astro.url.pathname;
                 <NavButton text = "Modelos" href="/print-models" active={currentPath === "/print-models"}>
                     <IconModel />
                 </NavButton>
+                <NavButton text = "Settings" href="/">
+                    <IconSettings />
+                </NavButton>
+                <!-- <button id="toggle-aside" class="toggle-btn">☰</button> -->
             </ul>
         </nav>
-    </CardDashboard>    
-    <CardDashboard class="nav-utils flex-column tab-container">
+    </div>    
+    <div class="card-container nav-utils flex-column tab-container">
         <ul class="nav-utils_list flex-column tab-menu">
-            <NavButton text = "Settings" href="/">
-                <IconSettings />
-            </NavButton>
             <UserHeader />
         </ul>
-    </CardDashboard>
+    </div>
 </aside>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const aside = document.querySelector(".main-aside-nav");
+        const toggleBtn = document.getElementById("toggle-aside");
+
+        toggleBtn?.addEventListener("click", () => {
+            aside?.classList.toggle("collapsed");
+        });
+    });
+</script>
 
 <style>
     aside{
@@ -58,6 +69,7 @@ const currentPath = Astro.url.pathname;
         box-sizing: border-box;
         margin: 0 10px 0 0;
         gap: 10px;
+        width: 200px;
     }
 
     .flex-column{
@@ -84,10 +96,13 @@ const currentPath = Astro.url.pathname;
         padding:0;
         list-style: none;
         align-items: center;
-        justify-content: center;
-        gap:50px;
+        justify-content: space-between;
+        height: 95%;
+        gap: 10px;
     }
+
     .nav-utils_list{
-        gap:30px;
+        align-items: center;
+        justify-content: center;
     }
 </style>

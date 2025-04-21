@@ -4,27 +4,31 @@ import "@styles/menus.css"
 import type { Ticket } from "@ctypes/database_types";
 
 import SaleMenu from "./sale_menu";
+import ClientMenu from "./client_menu";
 
 export interface Props {
   data: Ticket;
-  isInner:boolean;
+  type_menu:string;
 }
 
 
 export default function TicketMenu(props:Props){
-    const {data,isInner} = props;
+    const {data,type_menu} = props;
+    const renderMenu = () => {
+        switch (type_menu) {
+            case "inner":
+                return <InnerMenu data={data} />;
+
+            case "menu":
+                return <Menu data={data} />;
+
+            case "controll":
+                return <Controll data={data} />;
+        }
+      };
+
     return (
-        <>
-            {isInner ?
-            (
-                <InnerMenu data={data} />
-            )
-            :
-            (
-                <Menu data={data} />
-            )
-            }
-        </>
+        <>{renderMenu()}</>
     )
 }
 
@@ -76,12 +80,12 @@ function Menu({data}:{data:Ticket}){
                                 Array.isArray(data.sales) ? (
                                     data.sales.map((sale, index) => (
                                         <div key={index}>
-                                            <SaleMenu data={sale} isInner={true} />
+                                            <SaleMenu data={sale} type_menu="inner"/>
                                         </div>
                                     ))
                                 ) : (
                                     <div>
-                                        <SaleMenu data={data.sales} isInner={true} />
+                                        <SaleMenu data={data.sales} type_menu="inner" />
                                     </div>
                                 )
                             ) : (
@@ -96,7 +100,7 @@ function Menu({data}:{data:Ticket}){
                         {data && data.client ?
                         (
                             <div>
-                                Client
+                                <ClientMenu data={data.client} type_menu="inner"/>
                             </div>
                         )
                         :
@@ -127,6 +131,14 @@ function Menu({data}:{data:Ticket}){
                 }
                 </div>
             </div>
+        </>
+    )
+}
+
+function Controll({data}:{data:Ticket}){
+    return (
+        <>
+            <div>Add to Ticket</div>
         </>
     )
 }

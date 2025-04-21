@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import styles from '@styles/dinamic_table.module.css';
 import type {TypeDict} from "src/types/database_types"
 
 import { useGetData } from '@hooks/useGetData';
@@ -20,8 +19,8 @@ function formatKey(key: string): string {
 
 export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
     const { endpoint,typeKey,setSelectedRow } = props;
-    const data = useGetData(endpoint,typeKey)
-    
+    const {data,refetch} = useGetData(endpoint,typeKey)
+
     type SelectedType = TypeDict[K]
     
     let keys: (keyof SelectedType)[] = [];
@@ -41,6 +40,9 @@ export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
 
     return (
         <>
+            <div>
+                <button onClick={refetch}>Recargar</button>
+            </div>
             {data && data.length > 0 ? 
             (
                 <table>

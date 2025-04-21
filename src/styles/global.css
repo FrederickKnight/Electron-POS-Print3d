@@ -13,7 +13,7 @@
 }
 
 html.dark {
-    --primary-color-black: rgba(17, 24, 39, 1);
+    --primary-color-black: rgb(11, 23, 52);
     --primary-color-dark: rgba(156, 163, 175, 1);
     --secondary-color: #872341;
     --secondary-light: #BE3144;
@@ -22,14 +22,15 @@ html.dark {
     --background-color: #000000;
     --text-color: rgba(243, 244, 246, 1);
 
-    --background-selected-color-menu-button: rgba(167, 139, 250, 1);
-    --background-color-menu-button: rgba(17, 24, 39, 1);
+    --background-selected-color-menu-button: rgb(125, 99, 204);
+    --background-color-menu-button: rgb(65, 74, 94);
 }
 
 img{
     max-width: 300px;
 }
 
+/* card container css */
 .card-container{
     box-sizing: border-box;
     background-color: var(--primary-color-black);
@@ -51,4 +52,4 @@ img{
 .card-container::-webkit-scrollbar{
     width: 0;
     height: 0;
-}
+}   

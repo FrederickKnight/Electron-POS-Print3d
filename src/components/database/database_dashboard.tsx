@@ -14,6 +14,11 @@ export default function DatabaseDashboard(){
     const [endpoint,setEndPoint] = useState<string>("sale");
     const [typeKey,setTypeKey] = useState<keyof TypeDict>("sale");
 
+    useEffect(() => {
+        console.log(selectedRow)
+        setSelectedRow(null)
+    },[endpoint,typeKey])
+
     return (
         <div className="grid-container">
             <div className="card-container header">
