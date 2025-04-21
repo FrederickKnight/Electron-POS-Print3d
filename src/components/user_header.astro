@@ -10,7 +10,9 @@ const isLogin = !!data.user?.id;
         {isLogin ? 
             <div class="user-data">
                 <IconPerson />
-                {data.user?.username}
+                <div class="nav-text">
+                    {data.user?.username}
+                </div>
             </div>
             :
             <div class="user-data">

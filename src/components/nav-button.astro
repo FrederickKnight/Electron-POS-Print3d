@@ -14,8 +14,12 @@ let ref_url = href ?? "#"
 ---
 
 <button id=`${newId}` class={`nav-button ${extraClass ?? ``} ${active ? `active` : ``}`} onclick={`window.location.href='${ref_url}'`}>
-    <slot />
-    {text}
+    <div class="nav-slot">
+        <slot />
+    </div>
+    <div class="nav-text">
+        {text}
+    </div>
 </button>
 
 <style>
@@ -25,10 +29,6 @@ let ref_url = href ?? "#"
         align-items: center;
         justify-content: center;
         gap: 8px;
-        
-    }
-
-    .nav-button:hover {
-        text-decoration: underline;
+        font-size: 13px;
     }
 </style>

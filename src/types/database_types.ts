@@ -75,6 +75,20 @@ export type PrintModel = {
     sales?: Sale | Sale[]
 }
 
+export type BrandModel = {
+    id:number;
+    name:string;
+    description?:string;
+    print_models:PrintModel | PrintModel[]
+}
+
+export type SetModel = {
+    id:number;
+    name:string;
+    description?:string;
+    print_models:PrintModel | PrintModel[]
+}
+
 // tickets
 export type FailureRisk = {
     low: number;
@@ -152,5 +166,12 @@ export type TypeDict = {
     ticket: Ticket;
     general_price: GeneralPrice;
     client: Client;
-    print_model:PrintModel
+    print_model:PrintModel;
+    brand_model:BrandModel;
+    set_model:SetModel;
+    theme:Theme;
+    subtheme:Subtheme;
+    material_type:MaterialType;
+    material:Material;
+    material_inventory:MaterialInventory;
 };

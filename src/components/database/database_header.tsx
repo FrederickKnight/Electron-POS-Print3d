@@ -27,21 +27,48 @@ export default function DatabaseHeader(props:Props){
     return (
         <div className="tab-container">
             <div className="tab-menu">
-                <button className={activeTab === `sale` ? `active` : ``}
-                onClick={() => setActiveTab(`sale`)}
+                <select
+                    value={activeTab}
+                    onChange={(e) => setActiveTab(e.target.value)}
+                    className="tab-selector"
                 >
-                    Sale
-                </button>
-                <button className={activeTab === `general-price` ? `active` : ``}
-                onClick={() => setActiveTab(`general-price`)}
-                >
-                    General Price
-                </button>
-                <button className={activeTab === `ticket` ? `active` : ``}
-                onClick={() => setActiveTab(`ticket`)}
-                >
-                    Ticket
-                </button>
+                    <option value="sale" className={activeTab === 'sale' ? 'active' : ''}>
+                        Sale
+                    </option>
+                    <option value="error-sale" className={activeTab === 'error-sale' ? 'active' : ''}>
+                        Error Sale
+                    </option>
+                    <option value="general-price" className={activeTab === 'general-price' ? 'active' : ''}>
+                        General Price
+                    </option>
+                    <option value="ticket" className={activeTab === 'ticket' ? 'active' : ''}>
+                        Ticket
+                    </option>
+                    <option value="client" className={activeTab === 'client' ? 'active' : ''}>
+                        Client
+                    </option>
+                    <option value="theme" className={activeTab === 'theme' ? 'active' : ''}>
+                        Theme
+                    </option>
+                    <option value="subtheme" className={activeTab === 'subtheme' ? 'active' : ''}>
+                        Subtheme
+                    </option>
+                    <option value="material-type" className={activeTab === 'material-type' ? 'active' : ''}>
+                        Material Type
+                    </option>
+                    <option value="material" className={activeTab === 'material' ? 'active' : ''}>
+                        Material
+                    </option>
+                    <option value="material-inventory" className={activeTab === 'material-inventory' ? 'active' : ''}>
+                        Material Inventory
+                    </option>
+                    <option value="brand-model" className={activeTab === 'brand-model' ? 'active' : ''}>
+                        Brand Model
+                    </option>
+                    <option value="set-model" className={activeTab === 'set-model' ? 'active' : ''}>
+                        Set Model
+                    </option>
+                </select>
             </div>
         </div>
     )
