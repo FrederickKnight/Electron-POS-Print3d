@@ -89,19 +89,18 @@ function Menu({data}:{data:Subtheme}){
 }
 
 function Controll({data}:{data:Subtheme}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"subtheme",typeKey:"subtheme",data})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"subtheme",typeKey:"subtheme",data,allowedFields:["id","name","description","id_theme"]})
 
     return (
         <>
             <button onClick={resetForm}>Reset</button>
-            <button onClick={() => {console.log(JSON.stringify(form))}}>??</button>
             {form?.id ? 
             (
-                <div>ID Seleccionado {form?.id}</div>
+                <div>Informacion Seleccionada de : #ID {form?.id}</div>
             )
             :
             (
-                <div>Nada</div>
+                <div>Sin Informacion Seleccionada</div>
             )
             }
             <form onSubmit={handleSubmit}>

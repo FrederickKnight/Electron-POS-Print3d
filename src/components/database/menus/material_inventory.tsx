@@ -4,6 +4,7 @@ import "@styles/menus.css"
 import type { MaterialInventory } from "@ctypes/database_types";
 
 import MaterialMenu from "./material_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: MaterialInventory;
@@ -84,9 +85,31 @@ function Menu({data}:{data:MaterialInventory}){
 }
 
 function Controll({data}:{data:MaterialInventory}){
-    return (
-        <>
-            <div>Add to Material Inventory</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"material-inventory",typeKey:"material_inventory",data,allowedFields:["id","id_material","quantity"]})
+    
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
+                (
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
+                )
+                :
+                (
+                    <div>Sin Informacion Seleccionada</div>
+                )
+                }
+                <form onSubmit={handleSubmit}>
+                    <label>ID Material:
+                        <input name="id_material" type="number" onChange={handleChange} value={form?.id_material !== undefined && form?.id_material !== null ? form.id_material : ""}/>
+                    </label>
+                    <label>Quantity:
+                        <input name="quantity" type="number" value={form?.quantity ?? ""} onChange={handleChange}/>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+      );
 }

@@ -131,7 +131,8 @@ function Menu({data}:{data:GeneralPrice}){
 function Controll({data}:{data:GeneralPrice}){
     return (
         <>
-            <div>Add to General Price</div>
+            <div>Add to General Price #Arreglar parte de los riesgos de fallo</div>
+            <div>Formula igual</div>
         </>
     )
 }

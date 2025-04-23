@@ -52,4 +52,14 @@ img{
 .card-container::-webkit-scrollbar{
     width: 0;
     height: 0;
-}   
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-between{
+    justify-content: space-between;
+}

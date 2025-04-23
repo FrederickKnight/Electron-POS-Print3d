@@ -3,6 +3,7 @@ import type { ErrorSale } from "@ctypes/database_types";
 import "@styles/menus.css"
 
 import SaleMenu from "./sale_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: ErrorSale | undefined;
@@ -83,9 +84,38 @@ function Menu({data}:{data:ErrorSale | undefined}){
 }
 
 function Controll({data}:{data:ErrorSale | undefined}){
-    return (
-        <>
-            <div>Add to Error Sale</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"error-sale",typeKey:"error_sale",data,allowedFields:["id","id_sale","waste","reajusted_price","description"]})
+    
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ?
+                    (
+                        <div>ID Seleccionado {form?.id}</div>
+                    )
+                    :
+                    (
+                        <div>Nada</div>
+                    )
+                    }
+                    
+                    <form onSubmit={handleSubmit}>
+                        <label>id_sale:
+                            <input name="id_sale" type="number" onChange={handleChange} value={form?.id_sale ?? ""}/>
+                        </label>
+                        <label>Name:
+                            <input name="waste" type="number" onChange={handleChange} value={form?.waste ?? ""}/>
+                        </label>
+                        <label>Reajusted Price:
+                            <input name="reajusted_price" type="number" onChange={handleChange} value={form?.reajusted_price ?? ""}/>
+                        </label>
+                        <label>Description:
+                            <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
+                        </label>
+                        <button type="submit">
+                            {form.id ? "Updatear" : "Crear"}
+                        </button>
+                    </form>
+            </>
+      );
 }

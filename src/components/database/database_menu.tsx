@@ -13,12 +13,9 @@ export interface Props<K extends keyof TypeDict>{
 
 export default function DatabaseMenu<K extends keyof TypeDict>(props:Props<K>){
     const { endpoint, typeKey, selectedRow } = props;
+    const [activeTab, setActiveTab] = useState("info");
+    
     const {data} = useGetData(`${endpoint}?relations=true&filter_field=id&filter_value=${selectedRow}`,typeKey)
-    const [activeTab, setActiveTab] = useState("info"); 
-
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint,typeKey,data: data ? data[0]: undefined})
-
-    const menuKey = `${typeKey}-${activeTab}-${selectedRow ?? "none"}`;
 
     return (
         <div className="tab-container">
@@ -37,12 +34,11 @@ export default function DatabaseMenu<K extends keyof TypeDict>(props:Props<K>){
             <div className="tab-content">
                 <div>
                     <MenuSelector
-                        key={menuKey}
                         data={data[0]}
                         typeKey={typeKey}
                         type_menu={activeTab === "add" ? "controll" : "menu"}
                     />
-                </div>
+                </div>  
             </div>
         </div>
     )

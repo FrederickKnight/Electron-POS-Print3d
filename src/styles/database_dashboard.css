@@ -1,11 +1,20 @@
 .grid-container{
     display: grid;
     height: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
+    
+    gap:10px;
+    
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
 
-    gap:10px;
+    grid-template-areas: 
+    "header header"
+    "body body";
+}
 
+.grid-container.menu-ready{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas: 
     "header header menu"
     "body body menu";

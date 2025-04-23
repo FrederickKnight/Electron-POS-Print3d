@@ -7,6 +7,7 @@ export type User = {
 
 export type Client = {
     id: number;
+    name:string;
     email: string;
     telephone: string;
     address: string;
@@ -68,6 +69,10 @@ export type PrintModel = {
     id: number;
     id_subtheme: number;
     subtheme?: Subtheme;
+    id_brand:number;
+    brand?:BrandModel;
+    id_set:number;
+    set?:SetModel;
     name: string;
     description: string;
     url_image: string;

@@ -88,12 +88,11 @@ function Menu({data}:{data:Theme}){
 
 
 function Controll({data}:{data:Theme}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"theme",typeKey:"theme",data})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"theme",typeKey:"theme",data,allowedFields:["id","name","description"]})
 
     return (
         <>
             <button onClick={resetForm}>Reset</button>
-            <button onClick={() => {console.log(JSON.stringify(form))}}>??</button>
             {form?.id ?
                 (
                     <div>ID Seleccionado {form?.id}</div>
@@ -111,9 +110,10 @@ function Controll({data}:{data:Theme}){
                     <label>Description:
                         <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
                     </label>
-                    <button type="submit">Crear</button>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
                 </form>
-           
         </>
   );
 }
