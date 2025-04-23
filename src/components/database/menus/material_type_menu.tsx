@@ -5,6 +5,7 @@ import type { MaterialType } from "@ctypes/database_types";
 
 import GeneralPriceMenu from "./general_price_menu";
 import MaterialMenu from "./material_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: MaterialType;
@@ -113,9 +114,28 @@ function Menu({data}:{data:MaterialType}){
 }
 
 function Controll({data}:{data:MaterialType}){
-    return (
-        <>
-            <div>Add to Material Type</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"material-type",typeKey:"material_type",data,allowedFields:["id","name"]})
+            
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
+                (
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
+                )
+                :
+                (
+                    <div>Sin Informacion Seleccionada</div>
+                )
+                }
+                <form onSubmit={handleSubmit}>
+                    <label>Quantity:
+                            <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+        );
 }

@@ -8,6 +8,7 @@ export interface Props<K extends keyof TypeDict>{
     endpoint:string;
     typeKey:K;
     setSelectedRow?: React.Dispatch<React.SetStateAction<number | null>>
+    menuOpener?: () => void;
 }
 
 function formatKey(key: string): string {
@@ -18,7 +19,7 @@ function formatKey(key: string): string {
 }
 
 export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
-    const { endpoint,typeKey,setSelectedRow } = props;
+    const { endpoint,typeKey,setSelectedRow,menuOpener } = props;
     const {data,refetch} = useGetData(endpoint,typeKey)
 
     type SelectedType = TypeDict[K]
@@ -35,6 +36,9 @@ export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
         if (firstCell && setSelectedRow !== undefined) {
             const content = firstCell.textContent;
             setSelectedRow(Number(content))
+            if(menuOpener !== undefined){
+                menuOpener()
+            }
         }
     };
 
@@ -54,7 +58,7 @@ export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item,rowIndex) => (
+                        {data.sort((a,b) => a.id - b.id).map((item,rowIndex) => (
                             <tr key={`row-${rowIndex}`} onClick={(event) => handleClick(event)}>
                                 {keys.map((key,colIndex) => (
                                     <td key={`row-${rowIndex}-col-${colIndex}`}>

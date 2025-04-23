@@ -4,6 +4,7 @@ import "@styles/menus.css"
 import type { SetModel } from "@ctypes/database_types";
 
 import PrintModelMenu from "./print_model_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: SetModel;
@@ -87,9 +88,31 @@ function Menu({data}:{data:SetModel}){
 }
 
 function Controll({data}:{data:SetModel}){
-    return (
-        <>
-            <div>Add to Set</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"set-model",typeKey:"set_model",data,allowedFields:["id","name","description"]})
+            
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
+                (
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
+                )
+                :
+                (
+                    <div>Sin Informacion Seleccionada</div>
+                )
+                }
+                <form onSubmit={handleSubmit}>
+                    <label>Name:
+                            <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Description:
+                            <input name="description" type="text" value={form?.description ?? ""} onChange={handleChange}/>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+        );
 }

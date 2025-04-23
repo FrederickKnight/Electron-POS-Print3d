@@ -4,6 +4,7 @@ import "@styles/menus.css"
 import type { Client } from "@ctypes/database_types";
 
 import TicketMenu from "./ticket_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: Client;
@@ -88,9 +89,37 @@ function Menu({data}:{data:Client}){
 }
 
 function Controll({data}:{data:Client}){
-    return (
-        <>
-            <div>Add to Client</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"client",typeKey:"client",data,allowedFields:["id","name","email","telephone","address"]})
+    
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
+                (
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
+                )
+                :
+                (
+                    <div>Sin Informacion Seleccionada</div>
+                )
+                }
+                <form onSubmit={handleSubmit}>
+                    <label>Name:
+                        <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Email:
+                        <input name="email" type="text" value={form?.email ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Tel:
+                        <input name="telephone" type="text" value={form?.telephone ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Address:
+                        <input name="address" type="text" value={form?.address ?? ""} onChange={handleChange}/>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+      )
 }

@@ -5,6 +5,7 @@ import type { Ticket } from "@ctypes/database_types";
 
 import SaleMenu from "./sale_menu";
 import ClientMenu from "./client_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: Ticket;
@@ -136,9 +137,37 @@ function Menu({data}:{data:Ticket}){
 }
 
 function Controll({data}:{data:Ticket}){
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"ticket",typeKey:"ticket",data,allowedFields:["id","id_user","id_client","date","subject"]})
+            
     return (
         <>
-            <div>Add to Ticket</div>
+            <button onClick={resetForm}>Reset</button>
+            {form?.id ? 
+            (
+                <div>Informacion Seleccionada de : #ID {form?.id}</div>
+            )
+            :
+            (
+                <div>Sin Informacion Seleccionada</div>
+            )
+            }
+            <form onSubmit={handleSubmit}>
+                <label>ID User:
+                        <input name="id_user" type="text" value={form?.id_user ?? ""} onChange={handleChange}/>
+                </label>
+                <label>ID Client:
+                    <input name="id_client" type="number" onChange={handleChange} value={form?.id_client !== undefined && form?.id_client !== null ? form.id_client : ""}/>
+                </label>
+                <label>Date:
+                        <input name="date" type="text" value={form?.date ?? ""} onChange={handleChange}/>
+                </label>
+                <label>Subject:
+                        <input name="subject" type="text" value={form?.subject ?? ""} onChange={handleChange}/>
+                </label>
+                <button type="submit">
+                    {form.id ? "Updatear" : "Crear"}
+                </button>
+            </form>
         </>
-    )
+    );
 }

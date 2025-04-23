@@ -7,6 +7,7 @@ import GeneralPriceMenu from "./general_price_menu";
 import TicketMenu from "./ticket_menu";
 import PrintModelMenu from "./print_model_menu";
 import ErrorSaleMenu from "./error_sale_menu";
+import { useSendForm } from "@hooks/useSendForm";
 
 export interface Props {
   data: Sale | Sale;
@@ -150,74 +151,47 @@ function Menu({data}:{data:Sale}){
 }
 
 function Controll({data}:{data:Sale}){
-
-    const [form,setForm] = useState<Partial<Sale>>({
-        id_ticket:0,
-        id_print_model:0,
-        id_general_price:0,
-        material_quantity:0,
-        print_time:0,
-        risk:"low",
-        discount:0,
-    })
-
-    useEffect(() => {
-        if(data !== undefined){
-            console.log(`data: ${data}`)
-        }
-    },[data])
-
-    return (
-        <>
-            {data ?
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"sale",typeKey:"sale",data,
+        allowedFields:["id","id_ticket","id_print_model","id_general_price","material_quantity","print_time","risk","discount"]})
+                
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
                 (
-                    <form>
-                        <label>Modelo:
-                            <input type="number" value={data.print_model.id}/>
-                        </label>
-                        <label>General Price:
-                            <input type="text" value={data.general_price.id}/>
-                        </label>
-                        <label>Cantidad Material:
-                            <input type="number" value={data.material_quantity}/>
-                        </label>
-                        <label>Tiempo Impresion:
-                            <input type="number" value={data.print_time}/>
-                        </label>
-                        <label>Riesgo:
-                            <input type="text" value={data.risk}/>
-                        </label>
-                        <label>Descuento:
-                            <input type="number" value={data.discount}/>
-                        </label>
-                        <button type="submit">Updatear</button>
-                    </form>
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
                 )
                 :
                 (
-                    <form>
-                        <label>Modelo:
-                            <input type="number" />
-                        </label>
-                        <label>General Price:
-                            <input type="number" />
-                        </label>
-                        <label>Cantidad Material:
-                            <input type="number" />
-                        </label>
-                        <label>Tiempo Impresion:
-                            <input type="number" />
-                        </label>
-                        <label>Riesgo:
-                            <input type="text" />
-                        </label>
-                        <label>Descuento:
-                            <input type="number" />
-                        </label>
-                        <button type="submit">Crear</button>
-                    </form>
+                    <div>Sin Informacion Seleccionada</div>
                 )
-            }
-        </>
-  );
+                }
+                <form onSubmit={handleSubmit}>
+                    <label>ID Ticket:
+                            <input name="id_ticket" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>ID Model:
+                            <input name="id_print_model" type="number" value={form?.id_print_model ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>ID General Price:
+                            <input name="id_general_price" type="number" value={form?.id_general_price ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Material Quantity:
+                            <input name="material_quantity" type="number" value={form?.material_quantity ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Print Time:
+                            <input name="print_time" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Risk #selectable:
+                            <input name="risk" type="text" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Discount:
+                            <input name="discount" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+        );
 }

@@ -7,11 +7,12 @@ export interface Props<K extends keyof TypeDict>{
     endpoint:string;
     typeKey: K;
     data: TypeDict[K] | undefined;
+    allowedFields: string[];
 }
 
 
 export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
-    const {endpoint,typeKey,data} = props
+    const {endpoint,typeKey,data,allowedFields} = props
     type SelectedType = TypeDict[typeof typeKey];
 
     const [form,setForm] = useState<Partial<SelectedType>>({})
@@ -24,17 +25,17 @@ export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
     
     useEffect(() => {
         if(data !== undefined){
-            setForm(data)
+            setForm((data))
             setMethod("PUT")
         }
         else{
-            setForm({})
-            setMethod("POST")
+            resetForm()
         }
     },[data])
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
         const { name, value } = e.target;
+        if (allowedFields && !allowedFields.includes(name)) return;
         setForm((prev) => ({
             ...prev,
             [name]: value,
@@ -44,10 +45,11 @@ export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
     function handleSubmit(e: React.FormEvent){
         e.preventDefault()
         
-        //revisar campos
+        const allowed_values = Object.fromEntries(Object.entries(form).filter(([Key,_]) => allowedFields.includes(Key)))
+        console.log(`allowed : ${JSON.stringify(allowed_values)}`)
         if (form){
             handleForm({
-                formData:form,
+                formData:allowed_values,
                 endpoint: endpoint,
                 method,
             })

@@ -20,24 +20,30 @@ export default function DatabaseDashboard(){
         setSelectedRow(null);
         setMenuReady(false);
 
-        const timeout = setTimeout(() => {
-            setMenuReady(true);
-        }, 0);
-
-        return () => clearTimeout(timeout);
     }, [endpoint, typeKey]);
 
+    const menuOpener = () => {
+        setMenuReady(!menuReady)
+    }
+    
     return (
-        <div className={`grid-container ${menuReady && selectedRow !== null ? `menu-ready` : ""}`}>
-            <div className="card-container header">
-                <DatabaseHeader setEndpoint={setEndPoint} setTypeKey={setTypeKey}/>
+        <div className={`grid-container ${menuReady ? `menu-ready` : ""}`}>
+            <div className="card-container header tab-menu flex-row flex-between">
+                <div>
+                    <DatabaseHeader setEndpoint={setEndPoint} setTypeKey={setTypeKey}/>
+                </div>
+                <div>
+                    <button className={menuReady ? `active` : ""} onClick={menuOpener}>
+                        {menuReady ? `Close` : "Open Menu"}
+                    </button>
+                </div>
             </div>
 
             <div className="card-container body">
-                <DynamicTable endpoint={endpoint} typeKey={typeKey} setSelectedRow={setSelectedRow}/>
+                <DynamicTable endpoint={endpoint} typeKey={typeKey} setSelectedRow={setSelectedRow} menuOpener={() => {setMenuReady(true)}}/>
             </div>
             
-            {menuReady && selectedRow !== null &&
+            {menuReady &&
                 <div className="card-container menu">
                     <DatabaseMenu endpoint={endpoint} typeKey={typeKey} selectedRow={selectedRow}/>
                 </div>

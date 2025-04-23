@@ -3,6 +3,8 @@ import "@styles/menus.css"
 
 import type { BrandModel } from "@ctypes/database_types";
 
+import { useSendForm } from "@hooks/useSendForm";
+
 import PrintModelMenu from "./print_model_menu";
 
 export interface Props {
@@ -87,9 +89,31 @@ function Menu({data}:{data:BrandModel}){
 }
 
 function Controll({data}:{data:BrandModel}){
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"brand-model",typeKey:"brand_model",data,allowedFields:["id","name","description"]})
+
     return (
         <>
-            <div>Add to Brand</div>
+            <button onClick={resetForm}>Reset</button>
+            {form?.id ? 
+            (
+                <div>Informacion Seleccionada de : #ID {form?.id}</div>
+            )
+            :
+            (
+                <div>Sin Informacion Seleccionada</div>
+            )
+            }
+            <form onSubmit={handleSubmit}>
+                <label>Name:
+                    <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                </label>
+                <label>Description:
+                    <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
+                </label>
+                <button type="submit">
+                    {form.id ? "Updatear" : "Crear"}
+                </button>
+            </form>
         </>
-    )
+  )
 }
