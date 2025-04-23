@@ -31,5 +31,9 @@ export function useGetData<K extends keyof TypeDict>(endpoint:string,typeKey:K){
         fetchData()
     },[endpoint,typeKey]);
 
-    return {data,refetch:fetchData};
+    const resetData = () => {
+        setData([])
+    }
+
+    return {data,refetch:fetchData,resetData};
 }

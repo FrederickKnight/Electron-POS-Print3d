@@ -14,13 +14,21 @@ export default function DatabaseDashboard(){
     const [endpoint,setEndPoint] = useState<string>("sale");
     const [typeKey,setTypeKey] = useState<keyof TypeDict>("sale");
 
+    const [menuReady, setMenuReady] = useState(false);
+
     useEffect(() => {
-        console.log(selectedRow)
-        setSelectedRow(null)
-    },[endpoint,typeKey])
+        setSelectedRow(null);
+        setMenuReady(false);
+
+        const timeout = setTimeout(() => {
+            setMenuReady(true);
+        }, 0);
+
+        return () => clearTimeout(timeout);
+    }, [endpoint, typeKey]);
 
     return (
-        <div className="grid-container">
+        <div className={`grid-container ${menuReady && selectedRow !== null ? `menu-ready` : ""}`}>
             <div className="card-container header">
                 <DatabaseHeader setEndpoint={setEndPoint} setTypeKey={setTypeKey}/>
             </div>
@@ -29,9 +37,11 @@ export default function DatabaseDashboard(){
                 <DynamicTable endpoint={endpoint} typeKey={typeKey} setSelectedRow={setSelectedRow}/>
             </div>
             
-            <div className="card-container menu">
-                <DatabaseMenu endpoint={endpoint} typeKey={typeKey} selectedRow={selectedRow}/>
-            </div>
+            {menuReady && selectedRow !== null &&
+                <div className="card-container menu">
+                    <DatabaseMenu endpoint={endpoint} typeKey={typeKey} selectedRow={selectedRow}/>
+                </div>
+            }
         </div>
     )
 }
