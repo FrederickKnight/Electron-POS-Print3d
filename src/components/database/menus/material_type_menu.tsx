@@ -114,7 +114,7 @@ function Menu({data}:{data:MaterialType}){
 }
 
 function Controll({data}:{data:MaterialType}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"material-type",typeKey:"material_type",data,allowedFields:["id","name"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material_type",data,allowedFields:["id","name"]})
             
         return (
             <>

@@ -1,10 +1,9 @@
 import React,{ useState, useEffect } from "react";
-import type {TypeDict} from "src/types/database_types"
+import {type TypeDict,ENDPOINT} from "src/types/database_types"
 import { handleForm } from "@lib/handle_form";
 
 
 export interface Props<K extends keyof TypeDict>{
-    endpoint:string;
     typeKey: K;
     data: TypeDict[K] | undefined;
     allowedFields: string[];
@@ -12,8 +11,10 @@ export interface Props<K extends keyof TypeDict>{
 
 
 export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
-    const {endpoint,typeKey,data,allowedFields} = props
+    const {typeKey,data,allowedFields} = props
     type SelectedType = TypeDict[typeof typeKey];
+
+    const endpoint = ENDPOINT[typeKey]
 
     const [form,setForm] = useState<Partial<SelectedType>>({})
     const [method,setMethod] = useState<"POST" | "PUT">("POST")
@@ -44,13 +45,14 @@ export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
 
     function handleSubmit(e: React.FormEvent){
         e.preventDefault()
-        
+        if (!endpoint) throw new Error("No hay endpoint");
+
         const allowed_values = Object.fromEntries(Object.entries(form).filter(([Key,_]) => allowedFields.includes(Key)))
         console.log(`allowed : ${JSON.stringify(allowed_values)}`)
         if (form){
             handleForm({
                 formData:allowed_values,
-                endpoint: endpoint,
+                endpoint,
                 method,
             })
         }  

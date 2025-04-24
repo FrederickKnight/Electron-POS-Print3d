@@ -85,7 +85,7 @@ function Menu({data}:{data:MaterialInventory}){
 }
 
 function Controll({data}:{data:MaterialInventory}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"material-inventory",typeKey:"material_inventory",data,allowedFields:["id","id_material","quantity"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material_inventory",data,allowedFields:["id","id_material","quantity"]})
     
         return (
             <>

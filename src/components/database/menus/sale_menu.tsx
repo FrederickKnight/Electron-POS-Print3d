@@ -151,7 +151,7 @@ function Menu({data}:{data:Sale}){
 }
 
 function Controll({data}:{data:Sale}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"sale",typeKey:"sale",data,
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"sale",data,
         allowedFields:["id","id_ticket","id_print_model","id_general_price","material_quantity","print_time","risk","discount"]})
                 
         return (

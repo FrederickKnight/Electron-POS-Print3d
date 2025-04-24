@@ -109,7 +109,7 @@ function Menu({data}:{data:Material}){
 }
 
 function Controll({data}:{data:Material}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"material",typeKey:"material",data,allowedFields:["id","name","brand","measurement_type","color","id_material_type"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material",data,allowedFields:["id","name","brand","measurement_type","color","id_material_type"]})
         
     return (
         <>

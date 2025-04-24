@@ -84,7 +84,7 @@ function Menu({data}:{data:ErrorSale | undefined}){
 }
 
 function Controll({data}:{data:ErrorSale | undefined}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"error-sale",typeKey:"error_sale",data,allowedFields:["id","id_sale","waste","reajusted_price","description"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"error_sale",data,allowedFields:["id","id_sale","waste","reajusted_price","description"]})
     
         return (
             <>

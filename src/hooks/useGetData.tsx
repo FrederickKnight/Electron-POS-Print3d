@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
-import type {TypeDict} from "src/types/database_types"
+import {type TypeDict,ENDPOINT} from "src/types/database_types"
 
-export function useGetData<K extends keyof TypeDict>(endpoint:string,typeKey:K){
+export function useGetData<K extends keyof TypeDict>(typeKey:K,querys?:string){
 
     type SelectedType = TypeDict[typeof typeKey];
 
     const [data,setData] = useState<SelectedType[]>([]);
-    const apiUrl = import.meta.env.PUBLIC_API_URL + endpoint;
+    let endpoint = ENDPOINT[typeKey]
+    if(querys){
+        endpoint = endpoint + querys
+    }
+
+    const apiUrl = import.meta.env.PUBLIC_API_URL  + endpoint
 
     const fetchData = async () => {
         try{
@@ -29,7 +34,7 @@ export function useGetData<K extends keyof TypeDict>(endpoint:string,typeKey:K){
 
     useEffect(() => {
         fetchData()
-    },[endpoint,typeKey]);
+    },[apiUrl,typeKey]);
 
     const resetData = () => {
         setData([])

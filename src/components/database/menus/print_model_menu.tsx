@@ -52,7 +52,7 @@ function Menu({data}:{data:PrintModel}){
 }
 
 function Controll({data}:{data:PrintModel}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"theme",typeKey:"theme",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"theme",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
     
         return (
             <>

@@ -1,7 +1,6 @@
 import React, {useEffect,useState} from "react"
 import type { TypeDict } from "@ctypes/database_types";
 import { useGetData } from "@hooks/useGetData";
-import { useSendForm } from "@hooks/useSendForm";
 import MenuSelector from "./menus/db_menu_selector";
 import "@styles/menus.css"
 
@@ -15,7 +14,7 @@ export default function DatabaseMenu<K extends keyof TypeDict>(props:Props<K>){
     const { endpoint, typeKey, selectedRow } = props;
     const [activeTab, setActiveTab] = useState("info");
     
-    const {data} = useGetData(`${endpoint}?relations=true&filter_field=id&filter_value=${selectedRow}`,typeKey)
+    const {data} = useGetData(typeKey,`?relations=true&filter_field=id&filter_value=${selectedRow}`)
 
     return (
         <div className="tab-container">

@@ -89,7 +89,7 @@ function Menu({data}:{data:Subtheme}){
 }
 
 function Controll({data}:{data:Subtheme}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"subtheme",typeKey:"subtheme",data,allowedFields:["id","name","description","id_theme"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"subtheme",data,allowedFields:["id","name","description","id_theme"]})
 
     return (
         <>

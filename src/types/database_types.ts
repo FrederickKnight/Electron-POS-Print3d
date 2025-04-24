@@ -1,3 +1,22 @@
+//ENDPOINTS
+export const ENDPOINT: {
+    [K in keyof TypeDict]?: string;
+} = {
+    sale: "sale/",
+    ticket: "ticket/",
+    general_price: "general-price/",
+    print_model: "print-model/",
+    error_sale: "error-sale/",
+    client: "client/",
+    theme: "theme/",
+    subtheme: "subtheme/",
+    material_type: "material-type/",
+    material: "material/",
+    material_inventory: "material-inventory/",
+    set_model: "set-model/",
+    brand_model: "brand-model/"
+}
+
 //User types
 export type User = {
     id: number;

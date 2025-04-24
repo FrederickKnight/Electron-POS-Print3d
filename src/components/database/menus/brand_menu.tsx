@@ -89,7 +89,7 @@ function Menu({data}:{data:BrandModel}){
 }
 
 function Controll({data}:{data:BrandModel}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"brand-model",typeKey:"brand_model",data,allowedFields:["id","name","description"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"brand_model",data,allowedFields:["id","name","description"]})
 
     return (
         <>

@@ -137,7 +137,7 @@ function Menu({data}:{data:Ticket}){
 }
 
 function Controll({data}:{data:Ticket}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"ticket",typeKey:"ticket",data,allowedFields:["id","id_user","id_client","date","subject"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"ticket",data,allowedFields:["id","id_user","id_client","date","subject"]})
             
     return (
         <>

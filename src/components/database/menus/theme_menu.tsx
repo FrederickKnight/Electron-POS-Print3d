@@ -88,7 +88,7 @@ function Menu({data}:{data:Theme}){
 
 
 function Controll({data}:{data:Theme}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"theme",typeKey:"theme",data,allowedFields:["id","name","description"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"theme",data,allowedFields:["id","name","description"]})
 
     return (
         <>
