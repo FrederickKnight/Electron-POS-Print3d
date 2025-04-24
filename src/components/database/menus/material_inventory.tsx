@@ -103,9 +103,9 @@ function Controll({data}:{data:MaterialInventory}){
             <form onSubmit={handleSubmit}>
                 {material_data &&
                 <label> Material
-                    <select name="id_material" value={form?.id ?  form.id_material : ""} onChange={handleChange}>
+                    <select name="id_material" value={form.id_material} onChange={handleChange}>
                         {material_data.sort((a,b) => a.id - b.id).map((material) => (
-                            <option value={material.id}>{material.name}</option>
+                            <option key={`material-${material.id}`} value={material.id}>{material.name}</option>
                         ))
                         }
                     </select>

@@ -145,9 +145,9 @@ function Controll({data}:{data:Material}){
                 </label>
                 {material_type_data &&
                     <label> Material Type
-                        <select name="id_material_type" value={form?.id ?  form.id_material_type : ""} onChange={handleChange}>
+                        <select name="id_material_type" value={form.id_material_type} onChange={handleChange}>
                             {material_type_data.sort((a,b) => a.id - b.id).map((material_type) => (
-                                <option value={material_type.id}>{material_type.name}</option>
+                                <option key={`material_type-${material_type.id}`} value={material_type.id}>{material_type.name}</option>
                             ))
                             }
                         </select>

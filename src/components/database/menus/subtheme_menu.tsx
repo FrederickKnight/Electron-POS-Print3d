@@ -114,9 +114,9 @@ function Controll({data}:{data:Subtheme}){
                 </label>
                 {theme_data &&
                     <label> Themes
-                        <select name="id_theme" value={form?.id ?  form.id_theme : ""} onChange={handleChange}>
+                        <select name="id_theme" value={form.id_theme} onChange={handleChange}>
                             {theme_data.sort((a,b) => a.id - b.id).map((theme) => (
-                                <option value={theme.id}>{theme.name}</option>
+                                <option key={`theme-${theme.id}`} value={theme.id}>{theme.name}</option>
                             ))
                             }
                         </select>

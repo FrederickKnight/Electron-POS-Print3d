@@ -104,9 +104,9 @@ function Controll({data}:{data:ErrorSale | undefined}){
                 <form onSubmit={handleSubmit}>
                     {sale_data &&
                         <label> Sale
-                            <select name="id_sale" value={form?.id ?  form.id_sale : ""} onChange={handleChange}>
+                            <select name="id_sale" value={form.id_sale} onChange={handleChange}>
                                 {sale_data.sort((a,b) => a.id - b.id).map((sale) => (
-                                    <option value={sale.id}>{sale.uuid}</option>
+                                    <option key={`sale-${sale.id}`} value={sale.id}>{sale.uuid}</option>
                                 ))
                                 }
                             </select>

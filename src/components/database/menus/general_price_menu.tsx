@@ -3,6 +3,8 @@ import type { GeneralPrice } from "@ctypes/database_types";
 import "@styles/menus.css"
 
 import SaleMenu from "./sale_menu";
+import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: GeneralPrice;
@@ -129,10 +131,54 @@ function Menu({data}:{data:GeneralPrice}){
 }
 
 function Controll({data}:{data:GeneralPrice}){
-    return (
-        <>
-            <div>Add to General Price #Arreglar parte de los riesgos de fallo</div>
-            <div>Formula igual</div>
-        </>
-    )
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"general_price",data,allowedFields:["id","id_material_type","date","wear","electricity","margin","failure_risk","formula"]})
+        const {data:material_type_data} = useGetData("material_type")
+    
+        return (
+            <>
+                <button onClick={resetForm}>Reset</button>
+                {form?.id ? 
+                (
+                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
+                )
+                :
+                (
+                    <div>Sin Informacion Seleccionada</div>
+                )
+                }
+                <form onSubmit={handleSubmit}>
+                    {material_type_data &&
+                            <label> Material Type
+                                <select name="id_material_type" value={form.id_material_type} onChange={handleChange}>
+                                    {material_type_data.sort((a,b) => a.id - b.id).map((material_type) => (
+                                        <option key={`material_type-${material_type.id}`} value={material_type.id}>{material_type.name}</option>
+                                    ))
+                                    }
+                                </select>
+                            </label>
+                        }
+                    <label>Date:
+                            <input name="date" type="text" value={form?.date ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Wear:
+                            <input name="wear" type="number" value={form?.wear ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Electricity:
+                            <input name="electricity" type="number" value={form?.electricity ?? ""} onChange={handleChange}/>
+                    </label>
+                    <label>Margin:
+                            <input name="margin" type="number" value={form?.margin ?? ""} onChange={handleChange}/>
+                    </label>
+                    <div>
+                        #failure risk
+                    </div>
+                    <div>
+                        #formula
+                    </div>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+            </>
+        );
 }

@@ -159,9 +159,9 @@ function Controll({data}:{data:Ticket}){
                 </label>
                 {client_data &&
                         <label> Client
-                            <select name="id_client" value={form?.id ?  form.id_client : ""} onChange={handleChange}>
+                            <select name="id_client" value={form.id_client} onChange={handleChange}>
                                 {client_data.sort((a,b) => a.id - b.id).map((client) => (
-                                    <option value={client.id}>{client.name}</option>
+                                    <option key={`client-${client.id}`} value={client.id}>{client.name}</option>
                                 ))
                                 }
                             </select>
