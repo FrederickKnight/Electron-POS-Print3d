@@ -4,6 +4,7 @@ import "@styles/menus.css"
 
 import SaleMenu from "./sale_menu";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: ErrorSale | undefined;
@@ -85,37 +86,45 @@ function Menu({data}:{data:ErrorSale | undefined}){
 
 function Controll({data}:{data:ErrorSale | undefined}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"error_sale",data,allowedFields:["id","id_sale","waste","reajusted_price","description"]})
+    const {data:sale_data} = useGetData("sale")
     
-        return (
-            <>
-                <button onClick={resetForm}>Reset</button>
-                {form?.id ?
-                    (
-                        <div>ID Seleccionado {form?.id}</div>
-                    )
-                    :
-                    (
-                        <div>Nada</div>
-                    )
+    return (
+        <>
+            <button onClick={resetForm}>Reset</button>
+            {form?.id ?
+                (
+                    <div>ID Seleccionado {form?.id}</div>
+                )
+                :
+                (
+                    <div>Nada</div>
+                )
+                }
+                
+                <form onSubmit={handleSubmit}>
+                    {sale_data &&
+                        <label> Sale
+                            <select name="id_sale" value={form?.id ?  form.id_sale : ""} onChange={handleChange}>
+                                {sale_data.sort((a,b) => a.id - b.id).map((sale) => (
+                                    <option value={sale.id}>{sale.uuid}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
                     }
-                    
-                    <form onSubmit={handleSubmit}>
-                        <label>id_sale:
-                            <input name="id_sale" type="number" onChange={handleChange} value={form?.id_sale ?? ""}/>
-                        </label>
-                        <label>Name:
-                            <input name="waste" type="number" onChange={handleChange} value={form?.waste ?? ""}/>
-                        </label>
-                        <label>Reajusted Price:
-                            <input name="reajusted_price" type="number" onChange={handleChange} value={form?.reajusted_price ?? ""}/>
-                        </label>
-                        <label>Description:
-                            <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
-                        </label>
-                        <button type="submit">
-                            {form.id ? "Updatear" : "Crear"}
-                        </button>
-                    </form>
-            </>
-      );
+                    <label>Name:
+                        <input name="waste" type="number" onChange={handleChange} value={form?.waste ?? ""}/>
+                    </label>
+                    <label>Reajusted Price:
+                        <input name="reajusted_price" type="number" onChange={handleChange} value={form?.reajusted_price ?? ""}/>
+                    </label>
+                    <label>Description:
+                        <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
+                    </label>
+                    <button type="submit">
+                        {form.id ? "Updatear" : "Crear"}
+                    </button>
+                </form>
+        </>
+    );
 }

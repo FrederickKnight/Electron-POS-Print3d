@@ -34,7 +34,7 @@ export function useSendForm<K extends keyof TypeDict>(props:Props<K>){
         }
     },[data])
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
+    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>){
         const { name, value } = e.target;
         if (allowedFields && !allowedFields.includes(name)) return;
         setForm((prev) => ({

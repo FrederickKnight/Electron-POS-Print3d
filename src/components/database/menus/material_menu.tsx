@@ -6,6 +6,7 @@ import type { Material } from "@ctypes/database_types";
 import MaterialTypeMenu from "./material_type_menu";
 import MaterialInventoryMenu from "./material_inventory";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: Material;
@@ -110,7 +111,8 @@ function Menu({data}:{data:Material}){
 
 function Controll({data}:{data:Material}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material",data,allowedFields:["id","name","brand","measurement_type","color","id_material_type"]})
-        
+    const {data:material_type_data} = useGetData("material_type")    
+
     return (
         <>
             <button onClick={resetForm}>Reset</button>
@@ -124,21 +126,33 @@ function Controll({data}:{data:Material}){
             )
             }
             <form onSubmit={handleSubmit}>
-                <label>Quantity:
-                        <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                <label>Name:
+                    <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
                 </label>
                 <label>Brand:
-                        <input name="brand" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                    <input name="brand" type="text" value={form?.brand ?? ""} onChange={handleChange}/>
                 </label>
-                <label>Measurement #selectable despues:
-                        <input name="measurement_type" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                <label>Measurement:
+                    <select name="measurement_type" value={form?.measurement_type} onChange={handleChange}>
+                        <option value="l">Litros</option>
+                        <option value="ml">Mililitros</option>
+                        <option value="kg">Kilogramos</option>
+                        <option value="g">Gramos</option>
+                    </select>
                 </label>
                 <label>Color:
-                        <input name="color" type="text" value={form?.name ?? ""} onChange={handleChange}/>
+                    <input name="color" type="text" value={form?.color ?? ""} onChange={handleChange}/>
                 </label>
-                <label>ID Material Type:
-                    <input name="id_material_type" type="number" onChange={handleChange} value={form?.id_material_type !== undefined && form?.id_material_type !== null ? form.id_material_type : ""}/>
-                </label>
+                {material_type_data &&
+                    <label> Material Type
+                        <select name="id_material_type" value={form?.id ?  form.id_material_type : ""} onChange={handleChange}>
+                            {material_type_data.sort((a,b) => a.id - b.id).map((material_type) => (
+                                <option value={material_type.id}>{material_type.name}</option>
+                            ))
+                            }
+                        </select>
+                    </label>
+                }
                 <button type="submit">
                     {form.id ? "Updatear" : "Crear"}
                 </button>

@@ -68,7 +68,7 @@ function Controll({data}:{data:PrintModel}){
                     }
                     
                     <form onSubmit={handleSubmit}>
-                        <label>Category:
+                        <label>Category  # select doble con theme y subtheme:
                             <input name="id_subtheme" type="text" onChange={handleChange} value={form?.name ?? ""}/>
                         </label>
                         <label>Name:

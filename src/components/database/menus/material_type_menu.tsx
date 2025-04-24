@@ -129,7 +129,7 @@ function Controll({data}:{data:MaterialType}){
                 )
                 }
                 <form onSubmit={handleSubmit}>
-                    <label>Quantity:
+                    <label>Name:
                             <input name="name" type="text" value={form?.name ?? ""} onChange={handleChange}/>
                     </label>
                     <button type="submit">

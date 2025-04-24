@@ -137,6 +137,7 @@ export type GeneralPrice = {
 }
 
 export type Sale = {
+    uuid?: string;
     id: number;
     id_ticket: number;
     ticket: Ticket;

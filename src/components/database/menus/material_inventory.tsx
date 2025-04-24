@@ -5,6 +5,7 @@ import type { MaterialInventory } from "@ctypes/database_types";
 
 import MaterialMenu from "./material_menu";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: MaterialInventory;
@@ -86,30 +87,37 @@ function Menu({data}:{data:MaterialInventory}){
 
 function Controll({data}:{data:MaterialInventory}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material_inventory",data,allowedFields:["id","id_material","quantity"]})
-    
-        return (
-            <>
-                <button onClick={resetForm}>Reset</button>
-                {form?.id ? 
-                (
-                    <div>Informacion Seleccionada de : #ID {form?.id}</div>
-                )
-                :
-                (
-                    <div>Sin Informacion Seleccionada</div>
-                )
+    const {data:material_data} = useGetData("material")
+    return (
+        <>
+            <button onClick={resetForm}>Reset</button>
+            {form?.id ? 
+            (
+                <div>Informacion Seleccionada de : #ID {form?.id}</div>
+            )
+            :
+            (
+                <div>Sin Informacion Seleccionada</div>
+            )
+            }
+            <form onSubmit={handleSubmit}>
+                {material_data &&
+                <label> Material
+                    <select name="id_material" value={form?.id ?  form.id_material : ""} onChange={handleChange}>
+                        {material_data.sort((a,b) => a.id - b.id).map((material) => (
+                            <option value={material.id}>{material.name}</option>
+                        ))
+                        }
+                    </select>
+                </label>
                 }
-                <form onSubmit={handleSubmit}>
-                    <label>ID Material:
-                        <input name="id_material" type="number" onChange={handleChange} value={form?.id_material !== undefined && form?.id_material !== null ? form.id_material : ""}/>
-                    </label>
-                    <label>Quantity:
-                        <input name="quantity" type="number" value={form?.quantity ?? ""} onChange={handleChange}/>
-                    </label>
-                    <button type="submit">
-                        {form.id ? "Updatear" : "Crear"}
-                    </button>
-                </form>
-            </>
-      );
+                <label>Quantity:
+                    <input name="quantity" type="number" value={form?.quantity ?? ""} onChange={handleChange}/>
+                </label>
+                <button type="submit">
+                    {form.id ? "Updatear" : "Crear"}
+                </button>
+            </form>
+        </>
+    );
 }
