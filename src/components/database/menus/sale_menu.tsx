@@ -173,9 +173,9 @@ function Controll({data}:{data:Sale}){
                 <form onSubmit={handleSubmit}>
                     {ticket_data &&
                         <label> Ticket
-                            <select name="id_ticket" value={form?.id ?  form.id_ticket : ""} onChange={handleChange}>
+                            <select name="id_ticket" value={form.id_ticket} onChange={handleChange}>
                                 {ticket_data.sort((a,b) => a.id - b.id).map((ticket) => (
-                                    <option value={ticket.id}>{ticket.uuid}</option>
+                                    <option key={`ticket-${ticket.id}`} value={ticket.id}>{ticket.uuid}</option>
                                 ))
                                 }
                             </select>
@@ -183,9 +183,9 @@ function Controll({data}:{data:Sale}){
                     }
                     {print_model_data &&
                         <label> Model
-                            <select name="id_print_model" value={form?.id ?  form.id_print_model : ""} onChange={handleChange}>
+                            <select name="id_print_model" value={form.id_print_model} onChange={handleChange}>
                                 {print_model_data.sort((a,b) => a.id - b.id).map((print_model) => (
-                                    <option value={print_model.id}>{print_model.name}</option>
+                                    <option key={`print_model-${print_model.id}`} value={print_model.id}>{print_model.name}</option>
                                 ))
                                 }
                             </select>
