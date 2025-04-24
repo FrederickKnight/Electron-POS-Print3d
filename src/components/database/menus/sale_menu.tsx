@@ -8,6 +8,7 @@ import TicketMenu from "./ticket_menu";
 import PrintModelMenu from "./print_model_menu";
 import ErrorSaleMenu from "./error_sale_menu";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: Sale | Sale;
@@ -151,9 +152,12 @@ function Menu({data}:{data:Sale}){
 }
 
 function Controll({data}:{data:Sale}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"sale",typeKey:"sale",data,
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"sale",data,
         allowedFields:["id","id_ticket","id_print_model","id_general_price","material_quantity","print_time","risk","discount"]})
-                
+        const {data:ticket_data} = useGetData("ticket")
+        const {data:print_model_data} = useGetData("print_model") 
+
+
         return (
             <>
                 <button onClick={resetForm}>Reset</button>
@@ -167,26 +171,44 @@ function Controll({data}:{data:Sale}){
                 )
                 }
                 <form onSubmit={handleSubmit}>
-                    <label>ID Ticket:
-                            <input name="id_ticket" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
-                    </label>
-                    <label>ID Model:
-                            <input name="id_print_model" type="number" value={form?.id_print_model ?? ""} onChange={handleChange}/>
-                    </label>
-                    <label>ID General Price:
+                    {ticket_data &&
+                        <label> Ticket
+                            <select name="id_ticket" value={form?.id ?  form.id_ticket : ""} onChange={handleChange}>
+                                {ticket_data.sort((a,b) => a.id - b.id).map((ticket) => (
+                                    <option value={ticket.id}>{ticket.uuid}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
+                    }
+                    {print_model_data &&
+                        <label> Model
+                            <select name="id_print_model" value={form?.id ?  form.id_print_model : ""} onChange={handleChange}>
+                                {print_model_data.sort((a,b) => a.id - b.id).map((print_model) => (
+                                    <option value={print_model.id}>{print_model.name}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
+                    }
+                    <label>ID General Price #el mas reciente o seleccionar:
                             <input name="id_general_price" type="number" value={form?.id_general_price ?? ""} onChange={handleChange}/>
                     </label>
                     <label>Material Quantity:
                             <input name="material_quantity" type="number" value={form?.material_quantity ?? ""} onChange={handleChange}/>
                     </label>
-                    <label>Print Time:
-                            <input name="print_time" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    <label>Print Time #make choice between seconds or hours:
+                            <input name="print_time" type="number" value={form?.print_time ?? ""} onChange={handleChange}/>
                     </label>
-                    <label>Risk #selectable:
-                            <input name="risk" type="text" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                    <label>Risk:
+                        <select name="risk" value={form?.risk} onChange={handleChange}>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
                     </label>
                     <label>Discount:
-                            <input name="discount" type="number" value={form?.id_ticket ?? ""} onChange={handleChange}/>
+                            <input name="discount" type="number" value={form?.discount ?? ""} onChange={handleChange}/>
                     </label>
                     <button type="submit">
                         {form.id ? "Updatear" : "Crear"}

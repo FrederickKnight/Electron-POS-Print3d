@@ -5,6 +5,7 @@ import type { Subtheme } from "@ctypes/database_types";
 
 import PrintModelMenu from "./print_model_menu";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: Subtheme;
@@ -89,8 +90,9 @@ function Menu({data}:{data:Subtheme}){
 }
 
 function Controll({data}:{data:Subtheme}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"subtheme",typeKey:"subtheme",data,allowedFields:["id","name","description","id_theme"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"subtheme",data,allowedFields:["id","name","description","id_theme"]})
 
+    const {data:theme_data} = useGetData("theme")
     return (
         <>
             <button onClick={resetForm}>Reset</button>
@@ -110,9 +112,16 @@ function Controll({data}:{data:Subtheme}){
                 <label>Description:
                     <textarea name="description" onChange={handleChange} value={form?.description ?? ""}></textarea>
                 </label>
-                <label>ID Theme:
-                    <input name="id_theme" type="number" onChange={handleChange} value={form?.id_theme !== undefined && form?.id_theme !== null ? form.id_theme : ""}/>
-                </label>
+                {theme_data &&
+                    <label> Themes
+                        <select name="id_theme" value={form?.id ?  form.id_theme : ""} onChange={handleChange}>
+                            {theme_data.sort((a,b) => a.id - b.id).map((theme) => (
+                                <option value={theme.id}>{theme.name}</option>
+                            ))
+                            }
+                        </select>
+                    </label>
+                }
                 <button type="submit">
                     {form.id ? "Updatear" : "Crear"}
                 </button>

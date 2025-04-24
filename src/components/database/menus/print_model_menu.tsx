@@ -52,7 +52,7 @@ function Menu({data}:{data:PrintModel}){
 }
 
 function Controll({data}:{data:PrintModel}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"theme",typeKey:"theme",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"theme",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
     
         return (
             <>
@@ -68,7 +68,7 @@ function Controll({data}:{data:PrintModel}){
                     }
                     
                     <form onSubmit={handleSubmit}>
-                        <label>Category:
+                        <label>Category  # select doble con theme y subtheme:
                             <input name="id_subtheme" type="text" onChange={handleChange} value={form?.name ?? ""}/>
                         </label>
                         <label>Name:

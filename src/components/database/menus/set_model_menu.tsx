@@ -88,7 +88,7 @@ function Menu({data}:{data:SetModel}){
 }
 
 function Controll({data}:{data:SetModel}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"set-model",typeKey:"set_model",data,allowedFields:["id","name","description"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"set_model",data,allowedFields:["id","name","description"]})
             
         return (
             <>

@@ -89,7 +89,7 @@ function Menu({data}:{data:Client}){
 }
 
 function Controll({data}:{data:Client}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"client",typeKey:"client",data,allowedFields:["id","name","email","telephone","address"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"client",data,allowedFields:["id","name","email","telephone","address"]})
     
         return (
             <>

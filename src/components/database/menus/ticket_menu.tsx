@@ -6,6 +6,7 @@ import type { Ticket } from "@ctypes/database_types";
 import SaleMenu from "./sale_menu";
 import ClientMenu from "./client_menu";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
 
 export interface Props {
   data: Ticket;
@@ -137,8 +138,9 @@ function Menu({data}:{data:Ticket}){
 }
 
 function Controll({data}:{data:Ticket}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({endpoint:"ticket",typeKey:"ticket",data,allowedFields:["id","id_user","id_client","date","subject"]})
-            
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"ticket",data,allowedFields:["id","id_user","id_client","date","subject"]})
+    const {data:client_data} = useGetData("client")
+
     return (
         <>
             <button onClick={resetForm}>Reset</button>
@@ -155,9 +157,16 @@ function Controll({data}:{data:Ticket}){
                 <label>ID User:
                         <input name="id_user" type="text" value={form?.id_user ?? ""} onChange={handleChange}/>
                 </label>
-                <label>ID Client:
-                    <input name="id_client" type="number" onChange={handleChange} value={form?.id_client !== undefined && form?.id_client !== null ? form.id_client : ""}/>
-                </label>
+                {client_data &&
+                        <label> Client
+                            <select name="id_client" value={form?.id ?  form.id_client : ""} onChange={handleChange}>
+                                {client_data.sort((a,b) => a.id - b.id).map((client) => (
+                                    <option value={client.id}>{client.name}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
+                    }
                 <label>Date:
                         <input name="date" type="text" value={form?.date ?? ""} onChange={handleChange}/>
                 </label>

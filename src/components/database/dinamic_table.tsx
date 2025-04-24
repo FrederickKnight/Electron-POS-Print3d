@@ -20,7 +20,7 @@ function formatKey(key: string): string {
 
 export default function DynamicTable<K extends keyof TypeDict>(props:Props<K>){
     const { endpoint,typeKey,setSelectedRow,menuOpener } = props;
-    const {data,refetch} = useGetData(endpoint,typeKey)
+    const {data,refetch} = useGetData(typeKey)
 
     type SelectedType = TypeDict[K]
     

@@ -71,6 +71,7 @@ form {
   form > label > input,
   form > label > select,
   form > label > textarea {
+    color:black;
     margin-top: 0.5rem;
     padding: 0.75rem;
     border: 3px solid var(--secondary-accent);
@@ -91,7 +92,6 @@ form {
   form > label > textarea:focus {
     outline: none;
     border-color: var(--secondary-color);
-    background-color: #fff;
   }
   
 /* form button */
