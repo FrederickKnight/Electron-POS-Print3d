@@ -4,6 +4,8 @@ import type {TypeDict} from "src/types/database_types"
 
 import { useGetData } from '@hooks/useGetData';
 
+import "@styles/dinamic_table.module.css"
+
 export interface Props<K extends keyof TypeDict>{
     endpoint:string;
     typeKey:K;
