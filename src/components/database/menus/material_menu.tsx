@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import "@styles/forms.css"
 import "@styles/menus.css"
 
 import type { Material } from "@ctypes/database_types";
@@ -114,7 +115,7 @@ function Controll({data}:{data:Material}){
     const {data:material_type_data} = useGetData("material_type")    
 
     return (
-        <>
+        <div className="form-container select-menu">
             <button onClick={resetForm}>Reset</button>
             {form?.id ? 
             (
@@ -157,6 +158,6 @@ function Controll({data}:{data:Material}){
                     {form.id ? "Updatear" : "Crear"}
                 </button>
             </form>
-        </>
+        </div>
     );
 }

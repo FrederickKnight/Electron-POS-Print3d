@@ -17,9 +17,11 @@ const isLogin = !!data.user?.id;
             :
             <div class="user-data">
                 <IconPerson />
-                Guest
+                <div class="nav-text">
+                    Guest
+                </div>
             </div>
-            }
+        }
     </div>
     <div class="user-menu">
         {isLogin ?
@@ -45,7 +47,6 @@ const isLogin = !!data.user?.id;
     .menu-form{
         display: flex;
         flex-direction: row;
-        gap:8px;
         align-items: center;
         justify-content: center;
     }

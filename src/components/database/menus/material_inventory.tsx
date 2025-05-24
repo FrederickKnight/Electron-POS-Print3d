@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import "@styles/forms.css"
 import "@styles/menus.css"
 
 import type { MaterialInventory } from "@ctypes/database_types";
@@ -89,7 +90,7 @@ function Controll({data}:{data:MaterialInventory}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material_inventory",data,allowedFields:["id","id_material","quantity"]})
     const {data:material_data} = useGetData("material")
     return (
-        <>
+        <div className="form-container select-menu">
             <button onClick={resetForm}>Reset</button>
             {form?.id ? 
             (
@@ -118,6 +119,6 @@ function Controll({data}:{data:MaterialInventory}){
                     {form.id ? "Updatear" : "Crear"}
                 </button>
             </form>
-        </>
+        </div>
     );
 }

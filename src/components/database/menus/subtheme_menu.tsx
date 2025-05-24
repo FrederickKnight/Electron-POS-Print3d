@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from "react";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import type { Subtheme } from "@ctypes/database_types";
 
@@ -94,7 +95,7 @@ function Controll({data}:{data:Subtheme}){
 
     const {data:theme_data} = useGetData("theme")
     return (
-        <>
+        <div className="form-container select-menu">
             <button onClick={resetForm}>Reset</button>
             {form?.id ? 
             (
@@ -126,6 +127,6 @@ function Controll({data}:{data:Subtheme}){
                     {form.id ? "Updatear" : "Crear"}
                 </button>
             </form>
-        </>
+        </div>
   );
 }

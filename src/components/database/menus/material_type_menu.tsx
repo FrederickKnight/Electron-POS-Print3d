@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import "@styles/forms.css"
 import "@styles/menus.css"
 
 import type { MaterialType } from "@ctypes/database_types";
@@ -117,7 +118,7 @@ function Controll({data}:{data:MaterialType}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"material_type",data,allowedFields:["id","name"]})
             
         return (
-            <>
+            <div className="form-container">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ? 
                 (
@@ -136,6 +137,6 @@ function Controll({data}:{data:MaterialType}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-            </>
+            </div>
         );
 }

@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import type { GeneralPrice } from "@ctypes/database_types";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import SaleMenu from "./sale_menu";
 import { useSendForm } from "@hooks/useSendForm";
@@ -65,7 +66,7 @@ function InnerMenu({data}:{data:GeneralPrice}){
 function Menu({data}:{data:GeneralPrice}){
     const [activeTab, setActiveTab] = useState("material_type");
     return (
-        <>
+        <div className="form-container">
             <h2>General Price Menu</h2>
             <h4>General Price id: {data?.id}</h4>
             <div className="tab-container">
@@ -126,7 +127,7 @@ function Menu({data}:{data:GeneralPrice}){
                 }
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -135,7 +136,7 @@ function Controll({data}:{data:GeneralPrice}){
         const {data:material_type_data} = useGetData("material_type")
     
         return (
-            <>
+            <div className="form-container select-menu">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ? 
                 (
@@ -179,6 +180,6 @@ function Controll({data}:{data:GeneralPrice}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-            </>
+            </div>
         );
 }

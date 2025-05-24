@@ -1,0 +1,62 @@
+
+/* forms */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+ .form-container form > label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  
+  .form-container form > label > input,
+  .form-container form > label > select,
+  .form-container form > label > textarea {
+    margin-top: 0.5rem;
+    border: 2px solid var(--secondary-accent);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+    text-align: center;
+  }
+
+  .form-container form > label > input,
+  .form-container form > label > textarea{
+    padding: 0.75rem;
+  }
+
+  .form-container form > label > textarea{
+    width: 300px;
+    min-height: 100px;
+    max-height: 200px;
+    resize: vertical;
+  }
+  
+  .form-container form > label > input:focus,
+  .form-container form > label > select:focus,
+  .form-container form > label > textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+  }
+  
+/* form button */
+.form-container form > button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--background-color-menu-button);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.form-container form > button:hover {
+  background-color: var(--background-selected-color-menu-button);
+}

@@ -26,7 +26,7 @@ export default function DatabaseHeader(props:Props){
     
     return (
         <div className="tab-container">
-            <div className="tab-menu">
+            <div className="tab-menu select-menu">
                 <select
                     value={activeTab}
                     onChange={(e) => setActiveTab(e.target.value)}
