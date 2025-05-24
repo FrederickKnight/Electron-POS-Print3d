@@ -45,10 +45,8 @@ const currentPath = Astro.url.pathname;
             </ul>
         </nav>
     </div>    
-    <div class="card-container nav-utils">
-        <ul class="nav-utils_list tab-menu">
-            <UserHeader />
-        </ul>
+    <div class="card-container nav-utils tab-menu">
+        <UserHeader />
     </div>
 </aside>
 
@@ -92,17 +90,12 @@ const currentPath = Astro.url.pathname;
         justify-content: center;
     }
 
-    .nav-main_list, .nav-utils_list{
+    .nav-main_list{
         padding:0;
         list-style: none;
         align-items: center;
         justify-content: space-between;
         height: 95%;
         gap: 10px;
-    }
-
-    .nav-utils_list{
-        align-items: center;
-        justify-content: center;
     }
 </style>

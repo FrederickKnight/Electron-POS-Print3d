@@ -1,6 +1,10 @@
-import React from "react";
-import type { PrintModel } from "@ctypes/database_types";
+import React, { useEffect, useState } from "react";
+import type { PrintModel, Subtheme } from "@ctypes/database_types";
 import { useSendForm } from "@hooks/useSendForm";
+import { useGetData } from "@hooks/useGetData";
+
+import "@styles/forms.css"
+import "@styles/menus.css"
 
 export interface Props {
   data: PrintModel;
@@ -52,10 +56,30 @@ function Menu({data}:{data:PrintModel}){
 }
 
 function Controll({data}:{data:PrintModel}){
-    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"theme",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
+    const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"print_model",data,allowedFields:["id","id_subtheme","name","description","url_image"]})
+    const {data:theme_data} = useGetData("theme")
+    const {data:subtheme_data} = useGetData("subtheme");
     
+    const [filteredSubthemes, setFilteredSubthemes] = useState<Subtheme[]>([]);
+
+    function handleThemeChange(e:React.ChangeEvent<HTMLSelectElement>){
+        const selectedTheme = parseInt(e.target.value,10);
+        console.log("Selected Theme:", selectedTheme);
+
+        if (subtheme_data){
+            setFilteredSubthemes(subtheme_data.filter((subtheme) => subtheme.id_theme === selectedTheme));
+            console.log("Filtered Subthemes:", filteredSubthemes);
+        }
+        handleChange(e);
+    }
+    
+    useEffect(() => {
+        const selectedTheme = form.subtheme?.id_theme && subtheme_data ? form.subtheme.id_theme : 1;
+        setFilteredSubthemes(subtheme_data.filter((subtheme) => subtheme.id_theme === selectedTheme));
+    },[form.subtheme?.id_theme,subtheme_data]);
+
         return (
-            <>
+            <div className="form-container select-menu">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ?
                     (
@@ -68,9 +92,26 @@ function Controll({data}:{data:PrintModel}){
                     }
                     
                     <form onSubmit={handleSubmit}>
-                        <label>Category  # select doble con theme y subtheme:
-                            <input name="id_subtheme" type="text" onChange={handleChange} value={form?.name ?? ""}/>
-                        </label>
+                        {theme_data && 
+                            <label> Theme
+                                <select name="id_theme" value={form.subtheme?.id_theme} onChange={handleThemeChange}>
+                                    {theme_data.sort((a,b) => a.id - b.id).map((theme) => (
+                                        <option key={`theme-${theme.id}`} value={theme.id}>{theme.name}</option>
+                                    ))
+                                }
+                                </select>
+                            </label>
+                        }
+                        {filteredSubthemes && 
+                            <label> Subtheme
+                                <select name="id_subtheme" value={form.id_subtheme} onChange={handleChange}>
+                                    {filteredSubthemes.sort((a,b) => a.id - b.id).map((subtheme) => (
+                                        <option key={`theme-${subtheme.id}`} value={subtheme.id}>{subtheme.name}</option>
+                                    ))
+                                }
+                                </select>
+                            </label>
+                        }
                         <label>Name:
                             <input name="name" type="text" onChange={handleChange} value={form?.name ?? ""}/>
                         </label>
@@ -84,6 +125,6 @@ function Controll({data}:{data:PrintModel}){
                             {form.id ? "Updatear" : "Crear"}
                         </button>
                     </form>
-            </>
+            </div>
       );
 }

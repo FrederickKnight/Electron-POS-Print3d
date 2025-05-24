@@ -22,9 +22,11 @@ export async function handleForm<T>(options:Options<T>){
             headers:{
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(formData)
         })
         
+        if(res.status === 401) throw new Error("Sin autorizacion")
         if(!res.ok) throw new Error("error en la solicitud")
             
         const data = await res.json()
