@@ -3,6 +3,7 @@ import IconPerson from "@icons/icon-person.astro"
 
 const data = Astro.locals
 const isLogin = !!data.user?.id;
+const currentPath = Astro.url.pathname;
 ---
 
 <div class="user-header">
@@ -25,7 +26,10 @@ const isLogin = !!data.user?.id;
     </div>
     <div class="user-menu">
         {isLogin ?
-            <div class="menu-form">
+            <div class="menu-form tab-menu">
+                <form method="post" action="/profile">
+                    <button type="submit" class={`menu-item ${currentPath === "/profile" ? `active` : ``}`}>Profile</button>
+                </form>
                 <form method="post" action="/logout">
                     <button type="submit" class="menu-item">Log Out</button>
                 </form>
@@ -33,10 +37,10 @@ const isLogin = !!data.user?.id;
             :
             <div class="menu-form">
                 <form method="post" action="/login">
-                    <button type="submit" class="menu-item">Log In</button>
+                    <button type="submit" class={`menu-item ${currentPath === "/login" ? `active` : ``}`}>Log In</button>
                 </form>
                 <form method="post" action="/signup">
-                    <button type="submit" class="menu-item">Sign Up</button>
+                    <button type="submit" class={`menu-item ${currentPath === "/signup" ? `active` : ``}`}>Sign Up</button>
                 </form>
             </div>
         }
@@ -44,6 +48,12 @@ const isLogin = !!data.user?.id;
 </div>
 
 <style>
+    .user-header{
+        margin: auto;
+        display: grid;
+        gap: 0.5rem;
+    }
+
     .menu-form{
         display: flex;
         flex-direction: row;
@@ -54,13 +64,13 @@ const isLogin = !!data.user?.id;
     .user-data{
         text-align: center;
     }
-
+/* 
     .user-menu{
         visibility: hidden;
     }
 
     .user-header:hover .user-menu{
         visibility: visible;
-    }
+    } */
     
 </style>
