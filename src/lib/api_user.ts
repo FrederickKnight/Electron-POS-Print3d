@@ -6,7 +6,7 @@ import type {User} from "@lib/cookie_session"
 
 export async function registerUser(context:APIContext,username:string,password:string): Promise<User|null> {
 
-    const response = await fetch(API_URL+"register",{
+    const response = await fetch(API_URL,{
 		method:"POST",
 		headers:{
 			"Content-Type":"application/json",
