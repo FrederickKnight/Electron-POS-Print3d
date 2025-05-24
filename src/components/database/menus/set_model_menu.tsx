@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import type { SetModel } from "@ctypes/database_types";
 
@@ -91,7 +92,7 @@ function Controll({data}:{data:SetModel}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"set_model",data,allowedFields:["id","name","description"]})
             
         return (
-            <>
+            <div className="form-container">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ? 
                 (
@@ -113,6 +114,6 @@ function Controll({data}:{data:SetModel}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-            </>
+            </div>
         );
 }

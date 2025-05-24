@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import "@styles/menus.css"
+import "@styles/forms.css"
+
 
 import type { Client } from "@ctypes/database_types";
 
@@ -92,7 +94,7 @@ function Controll({data}:{data:Client}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"client",data,allowedFields:["id","name","email","telephone","address"]})
     
         return (
-            <>
+            <div className="form-container">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ? 
                 (
@@ -120,6 +122,6 @@ function Controll({data}:{data:Client}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-            </>
+            </div>
       )
 }

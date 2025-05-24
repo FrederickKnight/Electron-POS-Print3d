@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import type { ErrorSale } from "@ctypes/database_types";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import SaleMenu from "./sale_menu";
 import { useSendForm } from "@hooks/useSendForm";
@@ -89,7 +90,7 @@ function Controll({data}:{data:ErrorSale | undefined}){
     const {data:sale_data} = useGetData("sale")
     
     return (
-        <>
+        <div className="form-container select-menu">
             <button onClick={resetForm}>Reset</button>
             {form?.id ?
                 (
@@ -125,6 +126,6 @@ function Controll({data}:{data:ErrorSale | undefined}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-        </>
+        </div>
     );
 }

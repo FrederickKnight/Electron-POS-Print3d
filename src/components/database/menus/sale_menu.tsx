@@ -1,5 +1,6 @@
 import React,{useEffect, useState, type FormEvent} from "react";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import type { Sale } from "@ctypes/database_types";
 
@@ -159,7 +160,7 @@ function Controll({data}:{data:Sale}){
 
 
         return (
-            <>
+            <div className="form-container select-menu">
                 <button onClick={resetForm}>Reset</button>
                 {form?.id ? 
                 (
@@ -214,6 +215,6 @@ function Controll({data}:{data:Sale}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-            </>
+            </div>
         );
 }

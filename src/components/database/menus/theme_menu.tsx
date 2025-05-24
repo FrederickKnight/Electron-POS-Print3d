@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import "@styles/forms.css"
 import "@styles/menus.css"
 
 import type { Theme } from "@ctypes/database_types";
@@ -91,7 +92,7 @@ function Controll({data}:{data:Theme}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"theme",data,allowedFields:["id","name","description"]})
 
     return (
-        <>
+        <div className="form-container">
             <button onClick={resetForm}>Reset</button>
             {form?.id ?
                 (
@@ -114,6 +115,6 @@ function Controll({data}:{data:Theme}){
                         {form.id ? "Updatear" : "Crear"}
                     </button>
                 </form>
-        </>
+        </div>
   );
 }

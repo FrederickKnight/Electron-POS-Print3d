@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import "@styles/menus.css"
+import "@styles/forms.css"
 
 import type { BrandModel } from "@ctypes/database_types";
 
@@ -92,7 +93,7 @@ function Controll({data}:{data:BrandModel}){
     const {form,resetForm,handleSubmit,handleChange} = useSendForm({typeKey:"brand_model",data,allowedFields:["id","name","description"]})
 
     return (
-        <>
+        <div className = "form-container">
             <button onClick={resetForm}>Reset</button>
             {form?.id ? 
             (
@@ -114,6 +115,6 @@ function Controll({data}:{data:BrandModel}){
                     {form.id ? "Updatear" : "Crear"}
                 </button>
             </form>
-        </>
+        </div>
   )
 }
